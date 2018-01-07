@@ -25,8 +25,8 @@ module.exports = function(app) {
 
   // Login Routes
   app.route('/')
-    .get(login.getCurrentUser)
-    .post(login.authenticate);
+    .get(dashboard.loadDashboard)
+    .post(dashboard.getSchedules);
 
   // Invoices Routes
   app.route('/invoice')
