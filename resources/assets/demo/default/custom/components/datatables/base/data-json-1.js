@@ -6,12 +6,12 @@ var DatatableJsonRemoteDemo = function () {
 	// basic demo
 	var demo = function () {
 
-		var datatable = $('#sr').mDatatable({
+		var datatable = $('.m_datatable').mDatatable({
 			// datasource definition
 			data: {
 				type: 'remote',
 				source: 'http://keenthemes.com/metronic/preview/inc/api/datatables/datasource/default.json',
-				pageSize: 4,
+				pageSize: 10,
 				saveState: {
 					cookie: true,
 					webstorage: true
