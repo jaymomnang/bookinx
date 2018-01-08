@@ -27,4 +27,4 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 routes(app);
 
 app.listen(port);
-console.log('Bookinx TZ Client listening on port ' + port);
+console.log('Bookinx Travel & Tours Client running on port ' + port);

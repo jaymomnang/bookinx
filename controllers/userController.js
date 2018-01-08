@@ -18,9 +18,6 @@ exports.get_users = function(req, res) {
 
 exports.add_new_user = function(req, res) {
 
-  if (req.session.email == undefined){
-    res.render("login");
-  }else{
     var new_user = req.body;
     var users;
     var arr;
@@ -60,7 +57,7 @@ exports.add_new_user = function(req, res) {
       });
 
     }
-  }
+  
 };
 
 exports.update_user_prof = function(req, res) {

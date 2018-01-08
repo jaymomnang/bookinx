@@ -1,34 +1,5 @@
 {% set title = 'Dashboard' %} {% extends 'views/_layout.html' %} {% block content %}
 
-<!-- begin: Subheader -->
-<!--
-<div class="m-subheader ">
-	<div class="d-flex align-items-center">
-		<div class="mr-auto">
-			<h3 class="m-subheader__title m-subheader__title--separator">
-				Home
-			</h3>
-			<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
-				<li class="m-nav__item m-nav__item--home">
-					<a href="#" class="m-nav__link m-nav__link--icon">
-						<i class="m-nav__link-icon la la-home"></i>
-					</a>
-				</li>
-				<li class="m-nav__separator">
-					-
-				</li>
-				<li class="m-nav__item">
-					<a href="" class="m-nav__link">
-						<span class="m-nav__link-text">
-							Bookings
-						</span>
-					</a>
-				</li>
-			</ul>
-		</div>
-	</div>
-</div>-->
-<!-- END: Subheader -->
 <div class="m-content">
 	<!--begin:: Widgets/Stats-->
 	<div class="m-portlet">
@@ -46,7 +17,7 @@
 							<div class="">
 								<span class="m-switch m-switch--icon m-switch--brand">
 									<label>
-										<input type="checkbox" checked="checked" name="isReturn">
+										<input type="checkbox" checked="checked" name="isReturn" id="isReturn">
 										<span></span>
 									</label>
 								</span>
@@ -120,7 +91,7 @@
 							</label>
 							<input type="date" class="form-control m-input" placeholder="Departure Date" name="departureDate">
 						</div>
-						<div class="col-lg-3">
+						<div class="col-lg-3" id="return_date">
 							<label>
 								Return Date
 							</label>
@@ -128,7 +99,7 @@
 						</div>
 					</div>
 					<div class="m-portlet__body">
-						<!--begin: Search Form -->
+						<!--begin: Search button -->
 						<div class="m-form m-form--label-align-left m--margin-top-20 m--margin-bottom-30">
 							<div class="row align-items-left">
 								<div class="col-xl-4 order-1 order-xl-2 m--align-left">
@@ -144,18 +115,50 @@
 								</div>
 							</div>
 						</div>
-						<!--end: Search Form -->
-						<!--begin: Datatable -->
-						<div class="m_datatable" id="sr"></div>
-						<!--end: Datatable -->
+						<!--end: Search button -->
 					</div>
 				</div>
 			</form>
-
 			<!--end search-->
+			<!--begin: Search Results-->
+			<div class="row m-row--no-padding m-row--col-separator-xl">
+				{% for s in schedule %}
+				<div class="col-md-12 col-lg-6 col-xl-3">
+					<!--begin::trip details-->
+					<div class="m-widget24">
+						<div class="m-widget24__item">
+							<h4 class="m-widget24__title">
+								{{s.departure_port}}
+							</h4>
+							<br>
+							<span class="m-widget24__desc">
+								{{s.destination}}
+							</span>
+							<span class="m-widget24__stats m--font-brand">
+								{{s.price}}
+							</span>
+							<div class="m--space-10"></div>
+							<div class="progress m-progress--sm">
+								<div class="progress-bar m--bg-brand" role="progressbar" style="width: 78%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+							<span class="m-widget24__change">
+								{{s.departure_date}}
+							</span>
+							<span class="m-widget24__number">
+								{{s.departure_time}}
+							</span>
+						</div>
+					</div>
+					<!--end::trip details-->
+				</div>
+				{% endfor %}
+			</div>
+			<!--end: Search Results-->
+
 			<div class="row m-row--no-padding m-row--col-separator-xl">
 				<h2 style="padding-top: 40px; padding-left:30px;" class="col-md-12">See Special Deals</h3>
 			</div>
+
 			<div class="row m-row--no-padding m-row--col-separator-xl">
 
 				<div class="col-md-12 col-lg-6 col-xl-3">
@@ -167,7 +170,7 @@
 							</h4>
 							<br>
 							<span class="m-widget24__desc">
-								to Zanzibar
+								Zanzibar
 							</span>
 							<span class="m-widget24__stats m--font-brand">
 								$25.00
@@ -195,7 +198,7 @@
 							</h4>
 							<br>
 							<span class="m-widget24__desc">
-								to Zanzibar
+								Zanzibar
 							</span>
 							<span class="m-widget24__stats m--font-info">
 								$30.00
@@ -223,7 +226,7 @@
 							</h4>
 							<br>
 							<span class="m-widget24__desc">
-								to Dar Es Salaam
+								Dar Es Salaam
 							</span>
 							<span class="m-widget24__stats m--font-danger">
 								$30.00
@@ -251,7 +254,7 @@
 							</h4>
 							<br>
 							<span class="m-widget24__desc">
-								to Dar Es Salaam
+								Dar Es Salaam
 							</span>
 							<span class="m-widget24__stats m--font-success">
 								$20.00
@@ -275,127 +278,17 @@
 	</div>
 	<!--end:: Widgets/Stats-->
 
-</div>
+	<script>
+		$('#isReturn').click(function () {
 
-<script>
-	$(document).ready(function(){
-		alert("hello!");
-		var dataJSONArray = '{{data}}';
-
-		alert(dataJSONArray);
-
-		var datatable = $('#sr').mDatatable({
-			// datasource definition
-			data: {
-				type: 'local',
-				source: dataJSONArray,
-				pageSize: 5
-			},
-
-			// layout definition
-			layout: {
-				theme: 'default', // datatable theme
-				class: '', // custom wrapper class
-				scroll: false, // enable/disable datatable scroll both horizontal and vertical when needed.
-				height: 450, // datatable's body's fixed height
-				footer: false // display/hide footer
-			},
-
-			// column sorting(refer to Kendo UI)
-			sortable: true,
-
-			// column based filtering(refer to Kendo UI)
-			filterable: false,
-
-			pagination: true,
-
-			// inline and bactch editing(cooming soon)
-			// editable: false,
-
-			// columns definition
-			columns: [{
-				field: "RecordID",
-				title: "#",
-				width: 50,
-				sortable: false,
-				selector: false,
-				textAlign: 'center'
-			}, {
-				field: "OrderID",
-				title: "Order ID"
-			}, {
-				field: "ShipName",
-				title: "Ship Name",
-				responsive: { visible: 'lg' }
-			}, {
-				field: "Currency",
-				title: "Currency",
-				width: 100
-			}, {
-				field: "ShipAddress",
-				title: "Ship Address",
-				responsive: { visible: 'lg' }
-			}, {
-				field: "ShipDate",
-				title: "Ship Date"
-			}, {
-				field: "Status",
-				title: "Status",
-				// callback function support for column rendering
-				template: function (row) {
-					var status = {
-						1: { 'title': 'Pending', 'class': 'm-badge--brand' },
-						2: { 'title': 'Delivered', 'class': ' m-badge--metal' },
-						3: { 'title': 'Canceled', 'class': ' m-badge--primary' },
-						4: { 'title': 'Success', 'class': ' m-badge--success' },
-						5: { 'title': 'Info', 'class': ' m-badge--info' },
-						6: { 'title': 'Danger', 'class': ' m-badge--danger' },
-						7: { 'title': 'Warning', 'class': ' m-badge--warning' }
-					};
-					return '<span class="m-badge ' + status[row.Status].class + ' m-badge--wide">' + status[row.Status].title + '</span>';
-				}
-			}, {
-				field: "Type",
-				title: "Type",
-				// callback function support for column rendering
-				template: function (row) {
-					var status = {
-						1: { 'title': 'Online', 'state': 'danger' },
-						2: { 'title': 'Retail', 'state': 'primary' },
-						3: { 'title': 'Direct', 'state': 'accent' }
-					};
-					return '<span class="m-badge m-badge--' + status[row.Type].state + ' m-badge--dot"></span>&nbsp;<span class="m--font-bold m--font-' + status[row.Type].state + '">' + status[row.Type].title + '</span>';
-				}
-			}, {
-				field: "Actions",
-				width: 110,
-				title: "Actions",
-				sortable: false,
-				overflow: 'visible',
-				template: function (row) {
-					var dropup = (row.getDatatable().getPageSize() - row.getIndex()) <= 4 ? 'dropup' : '';
-
-					return '\
-						<div class="dropdown '+ dropup + '">\
-							<a href="#" class="btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="dropdown">\
-                                <i class="la la-ellipsis-h"></i>\
-                            </a>\
-						  	<div class="dropdown-menu dropdown-menu-right">\
-						    	<a class="dropdown-item" href="#"><i class="la la-edit"></i> Edit Details</a>\
-						    	<a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a>\
-						    	<a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>\
-						  	</div>\
-						</div>\
-						<a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">\
-                            <i class="la la-edit"></i>\
-                        </a>\
-					';
-				}
-			}]
+			var chkReturn = document.getElementById("isReturn");
+			if (chkReturn.checked) {
+				$('#return_date').show();
+			} else {
+				$('#return_date').hide();
+			}			
 		});
+	</script>
 
-		var query = datatable.getDataSourceQuery();
-	});
-</script>
-
+</div>
 {% endblock %}

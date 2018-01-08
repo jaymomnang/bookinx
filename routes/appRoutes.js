@@ -5,9 +5,9 @@ module.exports = function(app) {
   var login = require('../controllers/LoginController');
   var customers = require('../controllers/CustomersController');
   var products = require('../controllers/ProductsController');
-  var receipts = require('../controllers/ReceiptsController');
-  var reports = require('../controllers/ReportsController');
-  var quotes = require('../controllers/QuotesController');
+  var flights = require('../controllers/flightsController');
+  var payments = require('../controllers/paymentsController');
+  var schedules = require('../controllers/schedulesController');
   var dashboard = require('../controllers/DashboardController');
 
   global.monthNames = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE",
@@ -20,7 +20,7 @@ module.exports = function(app) {
       'attendance_label': 'Attendance',
       'submissions_label': 'My Submissions',
       'manage_usr_label': 'Manage User',
-      'reports_label':'Reports'
+      'payments_label':'payments'
   };
 
   // Login Routes
@@ -45,14 +45,14 @@ module.exports = function(app) {
   app.route('/invoicelist/invoice_id')
     .post(invoices.get_invoice);
 
-  // Quotes Routes
-  app.route('/quotes')
-    .get(quotes.list_all_quotes)
-    .post(quotes.add_quote)
-    .put(quotes.update_quote)
-    .delete(quotes.delete_quote);
-  app.route('/quotes/:quote_id')
-    .get(quotes.get_quote);
+  // schedules Routes
+  app.route('/schedules')
+    .get(schedules.list_all_schedules)
+    .post(schedules.add_schedule)
+    .put(schedules.update_schedule)
+    .delete(schedules.delete_schedule);
+  app.route('/schedules/:schedule_id')
+    .get(schedules.get_schedule);
 
   // Users Routes
   app.route('/manage_usr')
@@ -63,15 +63,15 @@ module.exports = function(app) {
     .put(user.update_user_prof)
     .delete(user.delete_user);
 
-  // Receipts Routes
-  app.route('/receipts')
-    .get(receipts.list_all_receipts)
-    .post(receipts.add_receipt)
-    .put(receipts.update_receipt)
-    .delete(receipts.delete_receipt);
+  // flights Routes
+  app.route('/flights')
+    .get(flights.list_all_flights)
+    .post(flights.add_flight)
+    .put(flights.update_flight)
+    .delete(flights.delete_flight);
 
-  app.route('/receipts/:receipt_id')
-    .get(receipts.get_receipt);
+  app.route('/flights/:flight_id')
+    .get(flights.get_flight);
 
   // Customers Routes
   app.route('/customers')
@@ -93,9 +93,9 @@ module.exports = function(app) {
   app.route('/products/:product_id')
     .get(products.get_product);
   
-    // Report Routes
-  app.route('/reports')
-    .get(reports.print_attendance);
+    // payment Routes
+  app.route('/payments')
+    .get(payments.print_attendance);
 
      // Dashboard Routes
   app.route('/dashboard')

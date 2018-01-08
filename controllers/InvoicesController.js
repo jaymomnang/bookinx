@@ -31,7 +31,7 @@ exports.load_blank = function (req, res) {
 
   var ui_data = req.session;
   var hdr_label = "New Invoice";
-  res.render("invoice", { menus, ui_data, hdr_label });
+  res.render("advanced", { menus, ui_data, hdr_label });
   //}
 };
 
