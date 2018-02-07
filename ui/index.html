@@ -15,36 +15,71 @@
 <body>
     <nav class="purple darken-4" role="navigation">
         <div class="nav-wrapper">
-            <a id="logo-container" style="margin-left: 15px" href="#" class="brand-logo">BOOKINX</a>
+            <a id="logo-container" href="#" class="brand-logo space-left">BOOKINX<i class="material-icons left">terrain</i></a>
             <ul class="right hide-on-med-and-down">
-                <li><a href="#">Book Now</a></li>
-                <li><a href="#">Cargo Services</a></li>
-                <li><a href="#">Move In</a></li>
-                <li><a href="#">FAQs</a></li>
-                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">Book Now<i class="material-icons left">event_available</i></a></li>
+                <li><a href="#">Cargo Services<i class="material-icons left">flight_takeoff</i></a></li>
+                <li><a href="#">Move In<i class="material-icons left">local_shipping</i></a></li>
+                <li><a href="#">My Account<i class="material-icons left">sentiment_very_satisfied</i></a></li>
             </ul>
 
             <ul id="nav-mobile" class="side-nav">
                 <li>
                     <a href="#"></a>
                 </li>
-                <li><a href="#">Book Now</a></li>
-                <li><a href="#">Cargo Services</a></li>
-                <li><a href="#">Move In</a></li>
-                <li><a href="#">FAQs</a></li>
-                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">Book Now<i class="material-icons left">event_available</i></a></li>
+                <li><a href="#">Cargo Services<i class="material-icons left">flight_takeoff</i></a></li>
+                <li><a href="#">Move In<i class="material-icons left">local_shipping</i></a></li>
+                <li><a href="#">My Account<i class="material-icons left">sentiment_very_satisfied</i></a></li>
             </ul>
             <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
         </div>
     </nav>
     <div class="section no-pad-bot" id="index-banner">
         <div>
-            <br><br>
             <div class="row">
                 <div class="col s12 m10">
-                    <h2>Book A Trip</h2>
+                    <h2 class="space-left">Book A Trip</h2>
                     <div class="col s12">
                         <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s12 m3">
+                                    <p>
+                                        <input name="group1" type="radio" id="oneway" />
+                                        <label for="oneway">One Way</label>
+                                    </p>
+                                </div>
+                                <div class="input-field col s12 m3">
+                                    <p>
+                                        <input name="group1" type="radio" id="return_" />
+                                        <label for="return_">Return</label>
+                                    </p>
+                                </div>
+                                <div class="input-field col s12 m3">
+                                    <p>
+                                        <input type="checkbox" id="resident_" />
+                                        <label for="resident_">Resindent?</label>
+                                    </p>
+                                </div>
+                                <div class="input-field col s12 m3">
+                                    <i class="material-icons prefix">face</i>
+                                    <select name="passengers">
+                                    <option value="" disabled selected>Passengers</option>
+                                    <option>1</option>
+									<option>2</option>
+									<option>3</option>
+									<option>4</option>
+									<option>5</option>
+									<option>6</option>
+									<option>7</option>									
+                                    </select>
+                                </div>
+                                <!--<div class="input-field col s12 m3">
+                                    <i class="material-icons prefix">date_range</i>
+                                    <input id="return_date" type="text" class="datepicker validate">
+                                    <label for="return_date">Return Date</label>
+                                </div>-->
+                            </div>
                             <div class="row">
                                 <div class="input-field col s12 m3">
                                     <i class="material-icons prefix">directions_boat</i>
@@ -78,6 +113,8 @@
                                 </div>
                             </div>
                         </form>
+                        <br/>
+                        <h4 class="space-left">Schedules</h4>
                         <table class="col s12 responsive-table highlight">
                             <thead>
                                 <tr>
@@ -131,15 +168,13 @@
                 </div>
             </div>
 
-
         </div>
-        <br><br>
     </div>
 
 
 
-    <footer class="page-footer purple darken-3">
-        <div class="container">
+    <footer class="page-footer deep-purple darken-3">
+        <div class="space-left">
             <div class="row">
                 <div class="col l6 s12">
                     <h5 class="white-text">About Bookinx</h5>
@@ -148,28 +183,28 @@
 
                 </div>
                 <div class="col l3 s12">
-                    <h5 class="white-text">Settings</h5>
+                    <h5 class="white-text">Know More</h5>
                     <ul>
-                        <li><a class="white-text" href="#!">Link 1</a></li>
-                        <li><a class="white-text" href="#!">Link 2</a></li>
-                        <li><a class="white-text" href="#!">Link 3</a></li>
-                        <li><a class="white-text" href="#!">Link 4</a></li>
+                        <li><a class="white-text" href="#!">FAQs</a></li>
+                        <li><a class="white-text" href="#!">Terms & Conditions</a></li>
+                        <li><a class="white-text" href="#!">Partners</a></li>
+                        <li><a class="white-text" href="#!">Contact Us</a></li>
                     </ul>
                 </div>
                 <div class="col l3 s12">
                     <h5 class="white-text">Connect</h5>
                     <ul>
-                        <li><a class="white-text" href="#!">Link 1</a></li>
-                        <li><a class="white-text" href="#!">Link 2</a></li>
-                        <li><a class="white-text" href="#!">Link 3</a></li>
-                        <li><a class="white-text" href="#!">Link 4</a></li>
+                        <li><a class="white-text" href="#!">Facebook</a></li>
+                        <li><a class="white-text" href="#!">Twitter</a></li>
+                        <li><a class="white-text" href="#!">LinkedIn</a></li>
+                        <li><a class="white-text" href="#!">Instagram</a></li>
                     </ul>
                 </div>
             </div>
         </div>
         <div class="footer-copyright purple darken-4">
-            <div class="container">
-                Powered by <a class="orange-text text-lighten-3" href="http://www.jmneontech.com">JM Neontech Limited</a>
+            <div class="space-left">
+                Powered by <a class="white-text" href="http://www.jmneontech.com">JM Neontech Limited</a> | All Rights Reserved
             </div>
         </div>
     </footer>
