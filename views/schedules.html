@@ -33,13 +33,14 @@
                 </tbody>
             </table>
 
-            <br /><br />
+            <br />
+            <br />
             <!-- Modal Trigger -->
             <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Add Schedule</a>
 
             <!-- Modal Structure -->
             <div id="modal1" class="modal modal-fixed-footer">
-                <form method="POST">
+                <form method="POST" id="_sd">
                     <div class="modal-content">
                         <h4>New Schedule</h4>
                         <div class="row">
@@ -47,10 +48,9 @@
                                 <i class="material-icons prefix">directions_boat</i>
                                 <select name="vessel">
                                     <option value="" disabled selected>Select Vessel</option>
-                                    <option value="Dar Es Salaam">Dar Es Salaam</option>
-                                                      <option value="Zanzibar">Zanzibar</option>
-                                                      <option value="Pemba">Pemba</option>
-                                                      <option value="TANGA">TANGA</option>
+                                    {% for v in _vs%}
+                                        <option value="{{ v.Vessel }}">{{ v.Vessel }}</option>
+                                    {% endfor %}                                    
                                 </select>
                             </div>
                             <div class="input-field col s12 m4">
@@ -58,9 +58,9 @@
                                 <select name="departure_port">
                                     <option value="" disabled selected>Depart From?</option>
                                     <option value="Dar Es Salaam">Dar Es Salaam</option>
-                                                      <option value="Zanzibar">Zanzibar</option>
-                                                      <option value="Pemba">Pemba</option>
-                                                      <option value="TANGA">TANGA</option>
+                                    <option value="Zanzibar">Zanzibar</option>
+                                    <option value="Pemba">Pemba</option>
+                                    <option value="TANGA">TANGA</option>
                                 </select>
                             </div>
                             <div class="input-field col s12 m4">
@@ -68,9 +68,9 @@
                                 <select name="destination">
                                     <option value="" disabled selected>Going To?</option>
                                     <option value="Dar Es Salaam">Dar Es Salaam</option>
-                                                      <option value="Zanzibar">Zanzibar</option>
-                                                      <option value="Pemba">Pemba</option>
-                                                      <option value="TANGA">TANGA</option>
+                                    <option value="Zanzibar">Zanzibar</option>
+                                    <option value="Pemba">Pemba</option>
+                                    <option value="TANGA">TANGA</option>
                                 </select>
                             </div>
                             <div class="input-field col s12 m4">
@@ -79,25 +79,40 @@
                                 <label for="departure_date">Departure Date</label>
                             </div>
                             <div class="input-field col s12 m4">
-                                <i class="material-icons prefix">date_range</i>
+                                <i class="material-icons prefix">access_time</i>
                                 <input id="departure_time" type="text" class="timepicker validate">
                                 <label for="departure_time">Departure Time</label>
                             </div>
-                            <div class="input-field col s12 m4">
+                            <!--<div class="input-field col s12 m4">
                                 <i class="material-icons prefix">date_range</i>
                                 <input id="price" type="text" class="validate">
                                 <label for="price">Amount</label>
-                            </div>
+                            </div>-->
                         </div>
-                        <!--<div class="row">
-                            <button class="btn waves-effect waves-light purple darken-4" type="submit" name="action">Find Schedules
-                                <i class="material-icons right">search</i>
-                              </button>
-                        </div>-->
+                        <div class="row">
+                            <h5>Prices</h5>
+                            {% for c in _cl %}
+                            <div class="input-field col s12 m4">
+                                <i class="material-icons prefix">class</i>
+                                <input id="_class" disabled type="text" class="validate" value="{{c.class_name}}">
+                                <!--<label for="f-class">{{c.class_name}}</label>-->
+                            </div>
+                            <div class="input-field col s12 m4">
+                                <i class="material-icons prefix">person</i>
+                                <input id="f-class" type="number" class="validate">
+                                <label for="f-class">Foreigner Price</label>
+                            </div>
+                            <div class="input-field col s12 m4">
+                                <i class="material-icons prefix">folder_shared</i>
+                                <input id="r-class" type="number" class="validate">
+                                <label for="r-class">Resident Prices</label>
+                            </div>
+                            {% endfor %}
+                        </div>
                     </div>
                     <div class="modal-footer">
-                        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Save</a>
-                        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Cancel</a>
+                        <a href="#" class="waves-effect waves-green btn-flat" onclick="sendData()">Save</a>
+                        <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
                     </div>
                 </form>
             </div>
@@ -109,23 +124,34 @@
         <div class="row">
             <div class="col s12">
                 <div class="icon-block">
-                    <h2 class="center light-blue-text"><i class="material-icons">flash_on</i></h2>
+                    <h2 class="center light-blue-text">
+                        <i class="material-icons">flash_on</i>
+                    </h2>
                     <h5 class="center">Speeds up development</h5>
 
-                    <p class="light">We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components. Additionally, we refined animations and transitions to provide a smoother experience for developers.</p>
+                    <p class="light">We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components.
+                        Additionally, we refined animations and transitions to provide a smoother experience for developers.</p>
                 </div>
             </div>
 
             <div class="col s12">
                 <div class="icon-block">
-                    <h2 class="center light-blue-text"><i class="material-icons">group</i></h2>
+                    <h2 class="center light-blue-text">
+                        <i class="material-icons">group</i>
+                    </h2>
                     <h5 class="center">User Experience Focused</h5>
 
-                    <p class="light">By utilizing elements and principles of Material Design, we were able to create a framework that incorporates components and animations that provide more feedback to users. Additionally, a single underlying responsive system across
-                        all platforms allow for a more unified user experience.</p>
+                    <p class="light">By utilizing elements and principles of Material Design, we were able to create a framework that incorporates
+                        components and animations that provide more feedback to users. Additionally, a single underlying
+                        responsive system across all platforms allow for a more unified user experience.</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    function sendData() {
+        document.getElementById("_sd").submit();
+    }
+</script> 
 {% endblock %}
