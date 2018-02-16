@@ -85,27 +85,26 @@
             <table class="col s12 responsive-table highlight">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Item Name</th>
-                        <th>Item Price</th>
+                        <th>Vessel</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
+                    {% for s in schedules %}
                     <tr>
-                        <td>Alvin</td>
-                        <td>Eclair</td>
-                        <td>$0.87</td>
+                        <td>{{s.vessel}}</td>
+                        <td>{{s.departure_port}}</td>
+                        <td>{{s.destination}}</td>
+                        <td>{{s.departure_date}}</td>
+                        <td>{{s.departure_time}}</td>
+                        <td>{{s.status}}</td>
                     </tr>
-                    <tr>
-                        <td>Alan</td>
-                        <td>Jellybean</td>
-                        <td>$3.76</td>
-                    </tr>
-                    <tr>
-                        <td>Jonathan</td>
-                        <td>Lollipop</td>
-                        <td>$7.00</td>
-                    </tr>
+                    {% endfor%}
+
                 </tbody>
             </table>
         </div>

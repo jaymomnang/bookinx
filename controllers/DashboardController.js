@@ -6,10 +6,10 @@ exports.loadDashboard = function(req, res) {
 
         if (error) return error;
         var data = JSON.parse(body);
-        var schedule = data;
+        var schedules = data;
 
         var ui_data = req.session;
-        res.render("index", { menus, ui_data, schedule });
+        res.render("index", { menus, ui_data, schedules });
 
     });
 
