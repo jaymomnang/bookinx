@@ -1,0 +1,131 @@
+ {% set title = 'Schedules' %} {% extends 'views/_layout.html' %} {% block content %}
+<div class="row">
+    <div class="col s12 m10">
+        <h2 class="space-left">Schedules</h2>
+        <div class="col s12">
+            <table class="col s12 responsive-table highlight">
+                <thead>
+                    <tr>
+                        <th>Vessel</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Booked Seats</th>
+                        <th>Free Seats</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for s in schedules %}
+                    <tr>
+                        <td>{{s.vessel}}</td>
+                        <td>{{s.departure_port}}</td>
+                        <td>{{s.destination}}</td>
+                        <td>{{s.departure_date}}</td>
+                        <td>{{s.departure_time}}</td>
+                        <td>{{s.booked_seats}}</td>
+                        <td>{{s.available_seats}}</td>
+                        <td>{{s.status}}</td>
+                    </tr>
+                    {% endfor%}
+
+                </tbody>
+            </table>
+
+            <br /><br />
+            <!-- Modal Trigger -->
+            <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Add Schedule</a>
+
+            <!-- Modal Structure -->
+            <div id="modal1" class="modal modal-fixed-footer">
+                <form method="POST">
+                    <div class="modal-content">
+                        <h4>New Schedule</h4>
+                        <div class="row">
+                            <div class="input-field col s12 m4">
+                                <i class="material-icons prefix">directions_boat</i>
+                                <select name="vessel">
+                                    <option value="" disabled selected>Select Vessel</option>
+                                    <option value="Dar Es Salaam">Dar Es Salaam</option>
+                                                      <option value="Zanzibar">Zanzibar</option>
+                                                      <option value="Pemba">Pemba</option>
+                                                      <option value="TANGA">TANGA</option>
+                                </select>
+                            </div>
+                            <div class="input-field col s12 m4">
+                                <i class="material-icons prefix">directions_boat</i>
+                                <select name="departure_port">
+                                    <option value="" disabled selected>Depart From?</option>
+                                    <option value="Dar Es Salaam">Dar Es Salaam</option>
+                                                      <option value="Zanzibar">Zanzibar</option>
+                                                      <option value="Pemba">Pemba</option>
+                                                      <option value="TANGA">TANGA</option>
+                                </select>
+                            </div>
+                            <div class="input-field col s12 m4">
+                                <i class="material-icons prefix">directions_boat</i>
+                                <select name="destination">
+                                    <option value="" disabled selected>Going To?</option>
+                                    <option value="Dar Es Salaam">Dar Es Salaam</option>
+                                                      <option value="Zanzibar">Zanzibar</option>
+                                                      <option value="Pemba">Pemba</option>
+                                                      <option value="TANGA">TANGA</option>
+                                </select>
+                            </div>
+                            <div class="input-field col s12 m4">
+                                <i class="material-icons prefix">date_range</i>
+                                <input id="departure_date" type="text" class="datepicker validate">
+                                <label for="departure_date">Departure Date</label>
+                            </div>
+                            <div class="input-field col s12 m4">
+                                <i class="material-icons prefix">date_range</i>
+                                <input id="departure_time" type="text" class="timepicker validate">
+                                <label for="departure_time">Departure Time</label>
+                            </div>
+                            <div class="input-field col s12 m4">
+                                <i class="material-icons prefix">date_range</i>
+                                <input id="price" type="text" class="validate">
+                                <label for="price">Amount</label>
+                            </div>
+                        </div>
+                        <!--<div class="row">
+                            <button class="btn waves-effect waves-light purple darken-4" type="submit" name="action">Find Schedules
+                                <i class="material-icons right">search</i>
+                              </button>
+                        </div>-->
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Save</a>
+                        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Cancel</a>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <div class="col s12 m2">
+        <!--   Icon Section   -->
+        <div class="row">
+            <div class="col s12">
+                <div class="icon-block">
+                    <h2 class="center light-blue-text"><i class="material-icons">flash_on</i></h2>
+                    <h5 class="center">Speeds up development</h5>
+
+                    <p class="light">We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components. Additionally, we refined animations and transitions to provide a smoother experience for developers.</p>
+                </div>
+            </div>
+
+            <div class="col s12">
+                <div class="icon-block">
+                    <h2 class="center light-blue-text"><i class="material-icons">group</i></h2>
+                    <h5 class="center">User Experience Focused</h5>
+
+                    <p class="light">By utilizing elements and principles of Material Design, we were able to create a framework that incorporates components and animations that provide more feedback to users. Additionally, a single underlying responsive system across
+                        all platforms allow for a more unified user experience.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
