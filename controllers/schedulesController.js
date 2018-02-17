@@ -36,6 +36,9 @@ exports.add_schedule = function (req, res) {
     var auth_url = mc_api + url_partial;
     request.post({ headers: { 'content-type': 'application/x-www-form-urlencoded' }, url: auth_url, form: req.body }, function (error, response, body) {
         var schedules = JSON.parse(body);
+
+        
+
         var msg = 'Error creating schedule, Please contact your administrator';
         var failed = true;
         if (!error) {
@@ -102,4 +105,13 @@ exports.delete_schedule = function (req, res) {
 
     }
 
+};
+
+function getPrices(data, limit){
+    var _sp = [];
+    var i;
+
+    for(i == 0; i < limit; i++){
+        _sp
+    }
 };
