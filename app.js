@@ -19,7 +19,7 @@ app.set('views', __dirname + '/views');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/resources'));
 app.use(bodyParser.json());
-app.use(session({secret: 'as465asdwqwdzcafd56a5df45a46df22535'}));
+app.use(session({ secret: 'as465asdwqwdzcafd56a5df45a46df22535' }));
 //app.use(errorHandler);
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -27,4 +27,4 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 routes(app);
 
 app.listen(port);
-console.log('Bookinx Travel & Tours Client running on port ' + port);
+console.log('Bookinx Travels & Logistics client running on port ' + port);
