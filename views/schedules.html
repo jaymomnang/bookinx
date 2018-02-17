@@ -75,12 +75,12 @@
                             </div>
                             <div class="input-field col s12 m4">
                                 <i class="material-icons prefix">date_range</i>
-                                <input id="departure_date" type="text" class="datepicker validate">
+                                <input id="departure_date" name="departure_date" type="text" class="datepicker validate">
                                 <label for="departure_date">Departure Date</label>
                             </div>
                             <div class="input-field col s12 m4">
                                 <i class="material-icons prefix">access_time</i>
-                                <input id="departure_time" type="text" class="timepicker validate">
+                                <input id="departure_time" name="departure_time" type="text" class="timepicker validate">
                                 <label for="departure_time">Departure Time</label>
                             </div>
                             <!--<div class="input-field col s12 m4">
@@ -99,12 +99,12 @@
                             </div>
                             <div class="input-field col s12 m4">
                                 <i class="material-icons prefix">person</i>
-                                <input id="f-class" type="number" class="validate">
-                                <label for="f-class">Foreigner Price</label>
+                                <input id="f-class" name="{{c.class_name}} - 0" type="number" class="validate">
+                                <label for="f-class">Non-Resident Price</label>
                             </div>
                             <div class="input-field col s12 m4">
                                 <i class="material-icons prefix">folder_shared</i>
-                                <input id="r-class" type="number" class="validate">
+                                <input id="r-class" type="number" name="{{c.class_name}} - 1" class="validate">
                                 <label for="r-class">Resident Prices</label>
                             </div>
                             {% endfor %}
@@ -129,8 +129,7 @@
                     </h2>
                     <h5 class="center">Speeds up development</h5>
 
-                    <p class="light">We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components.
-                        Additionally, we refined animations and transitions to provide a smoother experience for developers.</p>
+                    <p class="light">We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components. Additionally, we refined animations and transitions to provide a smoother experience for developers.</p>
                 </div>
             </div>
 
@@ -141,9 +140,8 @@
                     </h2>
                     <h5 class="center">User Experience Focused</h5>
 
-                    <p class="light">By utilizing elements and principles of Material Design, we were able to create a framework that incorporates
-                        components and animations that provide more feedback to users. Additionally, a single underlying
-                        responsive system across all platforms allow for a more unified user experience.</p>
+                    <p class="light">By utilizing elements and principles of Material Design, we were able to create a framework that incorporates components and animations that provide more feedback to users. Additionally, a single underlying responsive system across
+                        all platforms allow for a more unified user experience.</p>
                 </div>
             </div>
         </div>
@@ -153,5 +151,5 @@
     function sendData() {
         document.getElementById("_sd").submit();
     }
-</script> 
+</script>
 {% endblock %}
