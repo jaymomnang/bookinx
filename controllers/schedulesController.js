@@ -11,29 +11,29 @@ exports.list_all_schedules = function(req, res) {
         var _vs;
         var limit;
 
-        var _url2 = mc_api + "class";
-        request(_url2, function(err, resp, b) {
+        _url = mc_api + "Vessel";
+        request(_url, function(err, resp, b) {
             if (err) return err;
-            _cl = JSON.parse(b);
+            _vs = JSON.parse(b);
 
-            limit = _cl.length;
-
-            var _url3 = mc_api + "Vessel";
-            request(_url3, function(err, resp, b) {
+            _url = mc_api + "ports"
+            request(_url, function(err, resp, p) {
                 if (err) return err;
-                _vs = JSON.parse(b);
+                var _ports = JSON.parse(p);
 
-                _url3 = mc_api + "ports"
-                request(_url3, function(err, resp, p) {
+                _url = mc_api + "price"
+                request(_url, function(err, resp, p) {
                     if (err) return err;
-                    var _ports = JSON.parse(p);
-
+                    var _prices = JSON.parse(p);
                     var ui_data = req.session;
-                    res.render("schedules", { menus, ui_data, schedules, _vs, _cl, limit, _ports });
+
+                    res.render("schedules", { menus, ui_data, schedules, _vs, _ports, _prices });
 
                 })
+
             })
         })
+
     });
 
 };

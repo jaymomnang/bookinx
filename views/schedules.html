@@ -89,23 +89,32 @@
                         </div>
                         <div class="row">
                             <h5>Prices</h5>
-                            {% for c in _cl %}
-                            <div class="input-field col s12 m4">
-                                <i class="material-icons prefix">class</i>
-                                <input id="_class" disabled type="text" class="validate" value="{{c.class_name}}">
-                                <!--<label for="f-class">{{c.class_name}}</label>-->
-                            </div>
-                            <div class="input-field col s12 m4">
-                                <i class="material-icons prefix">person</i>
-                                <input id="f-class" name="{{c.class_name}} - 0" type="number" class="validate">
-                                <label for="f-class">Non-Resident Price</label>
-                            </div>
-                            <div class="input-field col s12 m4">
-                                <i class="material-icons prefix">folder_shared</i>
-                                <input id="r-class" type="number" name="{{c.class_name}} - 1" class="validate">
-                                <label for="r-class">Resident Prices</label>
-                            </div>
-                            {% endfor %}
+
+                            <table class="col s12 responsive-table highlight">
+                                <thead>
+                                    <tr>
+                                        <th>Class</th>
+                                        <th>Age</th>
+                                        <th>Resident Rate</th>
+                                        <th>Non-Resident Rate</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for p in _prices %}
+                                    <tr>
+                                        <td>{{p.seatClass}}</td>
+                                        <td>{{p.age}}</td>
+                                        <td>${{p.resident_price}}</td>
+                                        <td>${{p.non_resident_price}}</td>
+                                        <td>
+                                            <a class="waves-effect waves-light btn purple darken-4" href="#">Remove</a>
+                                        </td>
+                                    </tr>
+                                    {% endfor%}
+
+                                </tbody>
+                            </table>
                             <input type="hidden" name="limit" value="{{limit}}" />
                         </div>
                     </div>
