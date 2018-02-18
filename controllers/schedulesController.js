@@ -23,8 +23,15 @@ exports.list_all_schedules = function(req, res) {
                 if (err) return err;
                 _vs = JSON.parse(b);
 
-                var ui_data = req.session;
-                res.render("schedules", { menus, ui_data, schedules, _vs, _cl, limit });
+                _url3 = mc_api + "ports"
+                request(_url3, function(err, resp, p) {
+                    if (err) return err;
+                    var _ports = JSON.parse(p);
+
+                    var ui_data = req.session;
+                    res.render("schedules", { menus, ui_data, schedules, _vs, _cl, limit, _ports });
+
+                })
             })
         })
     });

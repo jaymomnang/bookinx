@@ -8,8 +8,15 @@ exports.loadDashboard = function(req, res) {
         var data = JSON.parse(body);
         var schedules = data;
 
-        var ui_data = req.session;
-        res.render("index", { menus, ui_data, schedules });
+
+        var _url3 = mc_api + "ports"
+        request(_url3, function(err, resp, p) {
+            if (err) return err;
+            var _ports = JSON.parse(p);
+
+            var ui_data = req.session;
+            res.render("index", { menus, ui_data, schedules, _ports });
+        })
 
     });
 

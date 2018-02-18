@@ -47,20 +47,18 @@
                         <i class="material-icons prefix">directions_boat</i>
                         <select name="departure_port">
                             <option value="" disabled selected>Depart From?</option>
-                            <option value="Dar Es Salaam">Dar Es Salaam</option>
-                                              <option value="Zanzibar">Zanzibar</option>
-                                              <option value="Pemba">Pemba</option>
-                                              <option value="TANGA">TANGA</option>
+                            {% for p in _ports%}
+                                <option value="{{ v.Vessel }}">{{ p.port_name }}</option>
+                            {% endfor %}
                         </select>
                     </div>
                     <div class="input-field col s12 m3">
                         <i class="material-icons prefix">directions_boat</i>
                         <select name="destination">
                             <option value="" disabled selected>Going To?</option>
-                            <option value="Dar Es Salaam">Dar Es Salaam</option>
-                                              <option value="Zanzibar">Zanzibar</option>
-                                              <option value="Pemba">Pemba</option>
-                                              <option value="TANGA">TANGA</option>
+                            {% for p in _ports%}
+                                <option value="{{ v.Vessel }}">{{ p.port_name }}</option>
+                            {% endfor %}
                         </select>
                     </div>
                     <div class="input-field col s12 m3">
