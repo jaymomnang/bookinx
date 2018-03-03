@@ -49,7 +49,8 @@
                                 <select name="vessel">
                                     <option value="" disabled selected>Select Vessel</option>
                                     {% for v in _vs%}
-                                        <option value="{{ v.Vessel }}">{{ v.Vessel }}</option>
+                                        <option value="{{ v.Vessel }}/{{ v.Capacity }}">{{ v.Vessel }}</option>
+
                                     {% endfor %}                                    
                                 </select>
                             </div>
@@ -95,7 +96,6 @@
                                         <th>Age</th>
                                         <th>Resident Rate</th>
                                         <th>Non-Resident Rate</th>
-                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -105,9 +105,6 @@
                                         <td>{{p.age}}</td>
                                         <td>${{p.resident_price}}</td>
                                         <td>${{p.non_resident_price}}</td>
-                                        <td>
-                                            <a class="waves-effect waves-light btn purple darken-4" href="#">Remove</a>
-                                        </td>
                                     </tr>
                                     {% endfor%}
 

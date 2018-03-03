@@ -25,7 +25,6 @@ exports.list_all_schedules = function(req, res) {
                 request(_url, function(err, resp, p) {
                     if (err) return err;
                     var _prices = JSON.parse(p);
-                    req.session.prices = _prices;
                     var ui_data = req.session;
 
                     res.render("schedules", { menus, ui_data, schedules, _vs, _ports, _prices });
@@ -48,6 +47,8 @@ exports.add_schedule = function(req, res) {
     var auth_url = mc_api + url_partial;
     request.post({ headers: { 'content-type': 'application/x-www-form-urlencoded' }, url: auth_url, form: req.body }, function(error, response, body) {
         var schedules = JSON.parse(body);
+
+
 
         var msg = 'Error creating schedule, Please contact your administrator';
         var failed = true;
