@@ -41,14 +41,17 @@ exports.list_all_schedules = function(req, res) {
 //post page data
 exports.add_schedule = function(req, res) {
 
-    getPrices(req.body);
+    var _data = req.body.vessel.split("/")
+    req.body.vessel = _data[0];
+    req.body.available_seats = _data[1];
+
+    console.log(_data);
 
     var url_partial = "schedule";
     var auth_url = mc_api + url_partial;
     request.post({ headers: { 'content-type': 'application/x-www-form-urlencoded' }, url: auth_url, form: req.body }, function(error, response, body) {
-        var schedules = JSON.parse(body);
-
-
+        //var schedules = JSON.parse(body);
+        console.log(body);
 
         var msg = 'Error creating schedule, Please contact your administrator';
         var failed = true;
@@ -68,7 +71,7 @@ exports.add_schedule = function(req, res) {
                     _vs = JSON.parse(b);
 
                     var ui_data = req.session;
-                    res.render("schedules", { menus, ui_data, schedules, _vs, _cl });
+                    res.render("schedules", { menus, ui_data, _vs, _cl });
                 })
             })
         }

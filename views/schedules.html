@@ -22,7 +22,9 @@
                         <td>{{s.vessel}}</td>
                         <td>{{s.departure_port}}</td>
                         <td>{{s.destination}}</td>
-                        <td>{{s.departure_date}}</td>
+                        <td>
+                            {{ s.departure_date | shorten }}
+                        </td>
                         <td>{{s.departure_time}}</td>
                         <td>{{s.booked_seats}}</td>
                         <td>{{s.available_seats}}</td>
@@ -50,7 +52,6 @@
                                     <option value="" disabled selected>Select Vessel</option>
                                     {% for v in _vs%}
                                         <option value="{{ v.Vessel }}/{{ v.Capacity }}">{{ v.Vessel }}</option>
-
                                     {% endfor %}                                    
                                 </select>
                             </div>
@@ -59,7 +60,7 @@
                                 <select name="departure_port">
                                     <option value="" disabled selected>Depart From?</option>
                                     {% for p in _ports%}
-                                        <option value="{{ v.Vessel }}">{{ p.port_name }}</option>
+                                        <option value="{{ p.port_name }}">{{ p.port_name }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -68,7 +69,7 @@
                                 <select name="destination">
                                     <option value="" disabled selected>Going To?</option>
                                     {% for p in _ports%}
-                                        <option value="{{ v.Vessel }}">{{ p.port_name }}</option>
+                                        <option value="{{ p.port_name }}">{{ p.port_name }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -153,6 +154,10 @@
 <script>
     function sendData() {
         document.getElementById("_sd").submit();
+    }
+
+    function showDate(dateValue) {
+        return dateValue.getDate();
     }
 </script>
 {% endblock %}

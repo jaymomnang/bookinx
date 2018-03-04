@@ -19,6 +19,16 @@ app.set('views', __dirname + '/views');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/resources'));
 app.use(bodyParser.json());
+
+var nunjucks = require('nunjucks');
+var env = new nunjucks.Environment();
+
+env.addFilter('shorten', function(dateValue) {
+    var d = dateValue.getDate() + ' ' + dateValue.getMonth() + ' ' + dateValue.getYear();
+    return d;
+});
+
+
 app.use(session({ secret: 'as465asdwqwdzcafd56a5df45a46df22535' }));
 //app.use(errorHandler);
 
