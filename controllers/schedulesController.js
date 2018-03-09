@@ -20,7 +20,11 @@ exports.list_all_schedules = function(req, res) {
             _url = mc_api + "ports"
             request(_url, function(err, resp, p) {
                 if (err) return err;
+
                 var _ports = JSON.parse(p);
+                var _p = getRoutes(_ports);
+
+                console.log(_p);
 
                 _url = mc_api + "price"
                 request(_url, function(err, resp, p) {
@@ -122,13 +126,21 @@ exports.delete_schedule = function(req, res) {
 
 };
 
-function getPrices(data) {
+function getRoutes(data) {
     var _sp = [];
-    var i;
-    var limit = data.limit;
-    console.log(data);
+    var i = 0;
+    var index = 0;
+    var count;
+    var limit = data.length;
 
     for (i == 0; i < limit; i++) {
-        //_sp[i] = data.
+
+        for (index == 0; index < limit; index++) {
+            _sp[count] = data[i].port_name + ' - ' + data[index].port_name;
+            count = count + 1;
+            console.log(count);
+        }
     }
+
+    return _sp;
 };
