@@ -31,7 +31,7 @@ exports.list_all_schedules = function(req, res) {
                     var _prices = JSON.parse(p);
                     var ui_data = req.session;
 
-                    res.render("schedules", { menus, ui_data, schedules, _vs, _ports, _prices, _p });
+                    res.render("schedules", { menus, ui_data, schedules, _vs, _prices, _p });
 
                 })
 
@@ -150,8 +150,6 @@ function getRoutes(data) {
 
         }
         index = 0;
-
     }
-
     return _sp;
 };

@@ -13,9 +13,10 @@ exports.loadDashboard = function(req, res) {
         request(_url3, function(err, resp, p) {
             if (err) return err;
             var _ports = JSON.parse(p);
+            var _p = getRoutes(_ports);
 
             var ui_data = req.session;
-            res.render("index", { menus, ui_data, schedules, _ports });
+            res.render("index", { menus, ui_data, schedules, _p });
         })
 
     });
@@ -24,6 +25,9 @@ exports.loadDashboard = function(req, res) {
 
 exports.getSchedules = function(req, res) {
     //TODO: load all flight/travel schedules.
+    var _data = req.body._route.split(" - ")
+    req.body.departure_port = _data[0];
+    req.body.destination = _data[1];
 
     res.render("index");
 };
@@ -44,4 +48,27 @@ function blankSchedule() {
     schedule.status = "pending";
 
     return schedule;
-}
+};
+
+//get the travel routes of the vessels
+function getRoutes(data) {
+    var _sp = [];
+    var i = 0;
+    var index = 0;
+    var count = 0;
+    var limit = data.length;
+
+    for (i == 0; i < limit; i++) {
+
+        for (index == 0; index < limit; index++) {
+
+            if (data[i].port_name != data[index].port_name) {
+                _sp[count] = data[i].port_name + ' - ' + data[index].port_name;
+                count = count + 1;
+            }
+
+        }
+        index = 0;
+    }
+    return _sp;
+};
