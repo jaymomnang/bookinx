@@ -57,6 +57,19 @@
                                     {% endfor %}                                    
                                 </select>
                             </div>
+
+                            <div class="input-field col s12 m4">
+                                <i class="material-icons prefix">directions_boat</i>
+                                <select name="_route">
+                                    <option value="" disabled selected>Select Route</option>
+                                    {% for p in _p%}
+                                        <option value="{{ p }}">{{ p | toTitleCase }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+
+                            <!--
                             <div class="input-field col s12 m4">
                                 <i class="material-icons prefix">directions_boat</i>
                                 <select name="departure_port">
@@ -75,6 +88,8 @@
                                     {% endfor %}
                                 </select>
                             </div>
+                            -->
+
                             <div class="input-field col s12 m4">
                                 <i class="material-icons prefix">date_range</i>
                                 <input id="departure_date" name="departure_date" type="text" class="datepicker validate">

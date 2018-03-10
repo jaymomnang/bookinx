@@ -24,7 +24,6 @@ exports.list_all_schedules = function(req, res) {
                 var _ports = JSON.parse(p);
                 var _p = getRoutes(_ports);
 
-                console.log(_p);
 
                 _url = mc_api + "price"
                 request(_url, function(err, resp, p) {
@@ -32,7 +31,7 @@ exports.list_all_schedules = function(req, res) {
                     var _prices = JSON.parse(p);
                     var ui_data = req.session;
 
-                    res.render("schedules", { menus, ui_data, schedules, _vs, _ports, _prices });
+                    res.render("schedules", { menus, ui_data, schedules, _vs, _ports, _prices, _p });
 
                 })
 
@@ -49,6 +48,10 @@ exports.add_schedule = function(req, res) {
     var _data = req.body.vessel.split("/")
     req.body.vessel = _data[0];
     req.body.available_seats = _data[1];
+
+    var _data1 = req.body._route.split(" - ")
+    req.body.departure_port = _data1[0];
+    req.body.destination = _data1[1];
 
     console.log(_data);
 
@@ -100,6 +103,7 @@ exports.get_schedule = function(req, res) {
 
 };
 
+//update a schedule on the database
 exports.update_schedule = function(req, res) {
 
     if (req.session.email == undefined) {
@@ -116,6 +120,7 @@ exports.update_schedule = function(req, res) {
     }
 };
 
+//remove a schedule from the database
 exports.delete_schedule = function(req, res) {
     //TODO: write a process for deleting a task
     if (req.session.email == undefined) {
@@ -126,20 +131,26 @@ exports.delete_schedule = function(req, res) {
 
 };
 
+//get the travel routes of the vessels
 function getRoutes(data) {
     var _sp = [];
     var i = 0;
     var index = 0;
-    var count;
+    var count = 0;
     var limit = data.length;
 
     for (i == 0; i < limit; i++) {
 
         for (index == 0; index < limit; index++) {
-            _sp[count] = data[i].port_name + ' - ' + data[index].port_name;
-            count = count + 1;
-            console.log(count);
+
+            if (data[i].port_name != data[index].port_name) {
+                _sp[count] = data[i].port_name + ' - ' + data[index].port_name;
+                count = count + 1;
+            }
+
         }
+        index = 0;
+
     }
 
     return _sp;

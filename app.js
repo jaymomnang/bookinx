@@ -19,6 +19,14 @@ engines.requires.nunjucks.addFilter('shortDate', function(dateValue) {
     return d;
 });
 
+engines.requires.nunjucks.addFilter('toTitleCase', function(str) {
+    str = str.toLowerCase().split(' ');
+    for (var i = 0; i < str.length; i++) {
+        str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
+    }
+    return str.join(' ');
+});
+
 //initialize bodyParser and errorHandler
 app.engine('html', engines.nunjucks);
 app.set('view engine', 'html');
