@@ -1,6 +1,6 @@
  {% set title = 'Schedules' %} {% extends 'views/_layout.html' %} {% block content %}
 <div class="row">
-    <div class="col s12 m10">
+    <div class="col s12 m9">
         <h2 class="space-left">Schedules</h2>
         <div class="col s12">
             <table class="col s12 responsive-table highlight">
@@ -67,29 +67,6 @@
                                     {% endfor %}
                                 </select>
                             </div>
-
-
-                            <!--
-                            <div class="input-field col s12 m4">
-                                <i class="material-icons prefix">directions_boat</i>
-                                <select name="departure_port">
-                                    <option value="" disabled selected>Depart From?</option>
-                                    {% for p in _ports%}
-                                        <option value="{{ p.port_name }}">{{ p.port_name }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <div class="input-field col s12 m4">
-                                <i class="material-icons prefix">directions_boat</i>
-                                <select name="destination">
-                                    <option value="" disabled selected>Going To?</option>
-                                    {% for p in _ports%}
-                                        <option value="{{ p.port_name }}">{{ p.port_name }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            -->
-
                             <div class="input-field col s12 m4">
                                 <i class="material-icons prefix">date_range</i>
                                 <input id="departure_date" name="departure_date" type="text" class="datepicker validate">
@@ -100,9 +77,6 @@
                                 <input id="departure_time" name="departure_time" type="text" class="timepicker validate">
                                 <label for="departure_time">Departure Time</label>
                             </div>
-                            <!--<div class="input-field col s12 m4">
-                                <input id="available_seats" name="available_seats" type="hidden" value="validate">
-                            </div>-->
                         </div>
                         <div class="row">
                             <h5>Prices</h5>
@@ -140,29 +114,22 @@
 
         </div>
     </div>
-    <div class="col s12 m2">
+    <div class="col s12 m3">
         <!--   Icon Section   -->
         <div class="row">
             <div class="col s12">
                 <div class="icon-block">
-                    <h2 class="center light-blue-text">
-                        <i class="material-icons">flash_on</i>
-                    </h2>
-                    <h5 class="center">Speeds up development</h5>
-
-                    <p class="light">We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components. Additionally, we refined animations and transitions to provide a smoother experience for developers.</p>
+                    <br />
+                    <h5 class="center">Enjoy Comfort & Class</h5>
+                    <img src="inside.jpg" alt="interior" width="100%" />
                 </div>
             </div>
 
             <div class="col s12">
                 <div class="icon-block">
-                    <h2 class="center light-blue-text">
-                        <i class="material-icons">group</i>
-                    </h2>
-                    <h5 class="center">User Experience Focused</h5>
-
-                    <p class="light">By utilizing elements and principles of Material Design, we were able to create a framework that incorporates components and animations that provide more feedback to users. Additionally, a single underlying responsive system across
-                        all platforms allow for a more unified user experience.</p>
+                    <br />
+                    <h5 class="center">Safe & Fast Vessels</h5>
+                    <img src="overview.jpg" alt="interior" width="100%" />
                 </div>
             </div>
         </div>

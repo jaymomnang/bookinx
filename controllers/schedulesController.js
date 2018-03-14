@@ -53,7 +53,7 @@ exports.add_schedule = function(req, res) {
     req.body.departure_port = _data1[0];
     req.body.destination = _data1[1];
 
-    console.log(_data);
+    console.log(req.body);
 
     var url_partial = "schedule";
     var auth_url = mc_api + url_partial;
