@@ -62,7 +62,7 @@
                                 <i class="material-icons prefix">directions_boat</i>
                                 <select name="_route">
                                     <option value="" disabled selected>Select Route</option>
-                                    {% for p in _p%}
+                                    {% for p in _routes%}
                                         <option value="{{ p }}">{{ p | toTitleCase }}</option>
                                     {% endfor %}
                                 </select>
