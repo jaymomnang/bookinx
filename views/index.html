@@ -7,52 +7,46 @@
         <div class="col s12">
             <form class="col s12">
                 <div class="row">
-                    <div class="input-field col s12 m3">
+                    <div class="input-field col s12 m4">
                         <p>
                             <input name="group1" type="radio" id="oneway" />
                             <label for="oneway">One Way</label>
                         </p>
                     </div>
-                    <div class="input-field col s12 m3">
+                    <div class="input-field col s12 m4">
                         <p>
                             <input name="group1" type="radio" id="return_" />
                             <label for="return_">Return</label>
                         </p>
                     </div>
-                    <div class="input-field col s12 m3">
+                    <div class="input-field col s12 m4">
                         <p>
                             <input type="checkbox" id="resident_" />
                             <label for="resident_">Resindent?</label>
                         </p>
                     </div>
-
-                    <!--<div class="input-field col s12 m3">
-                            <i class="material-icons prefix">date_range</i>
-                            <input id="return_date" type="text" class="datepicker validate">
-                            <label for="return_date">Return Date</label>
-                        </div>-->
                 </div>
                 <div class="row">
-                    <div class="input-field col s12 m3">
+                    <div class="input-field col s12 m4">
                         <i class="material-icons prefix">directions_boat</i>
                         <select name="_route">
                             <option value="" disabled selected>Select Route</option>
                             {% for p in _p%}
-                                <option value="{{ p }}">{{ p | toTitleCase }}</option>
+                            <option value="{{ p }}">{{ p | toTitleCase }}</option>
                             {% endfor %}
                         </select>
                     </div>
-                    <div class="input-field col s12 m3">
+                    <div class="input-field col s12 m4">
                         <i class="material-icons prefix">date_range</i>
                         <input id="departure_date" type="text" class="datepicker validate">
                         <label for="departure_date">Departure Date</label>
                     </div>
-                    <div class="input-field col s12 m3">
+                    <div class="input-field col s12 m4">
                         <i class="material-icons prefix">date_range</i>
                         <input id="return_date" type="text" class="datepicker validate">
                         <label for="return_date">Return Date</label>
                     </div>
-                    <div class="input-field col s12 m3">
+                    <div class="input-field col s12 m4">
                         <i class="material-icons prefix">face</i>
                         <select name="passengers">
                             <option value="" disabled selected>Passengers</option>
@@ -62,14 +56,14 @@
                             <option>4</option>
                             <option>5</option>
                             <option>6</option>
-                            <option>7</option>									
-                            </select>
+                            <option>7</option>
+                        </select>
                     </div>
                 </div>
                 <div class="row">
                     <button class="btn waves-effect waves-light purple darken-4" type="submit" name="action">Find Schedules
                         <i class="material-icons right">search</i>
-                      </button>
+                    </button>
                 </div>
             </form>
             <br/>
