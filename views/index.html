@@ -15,19 +15,19 @@
                             <div class="row">
                                 <div class="input-field col s12 m2">
                                     <p>
-                                        <input name="group1" type="radio" id="oneway" />
+                                        <input name="oneway" type="radio" id="oneway" />
                                         <label for="oneway">One Way</label>
                                     </p>
                                 </div>
                                 <div class="input-field col s12 m2">
                                     <p>
-                                        <input name="group1" type="radio" id="return_" />
+                                        <input name="return_" type="radio" id="return_" />
                                         <label for="return_">Return</label>
                                     </p>
                                 </div>
                                 <div class="input-field col s12 m4">
                                     <p>
-                                        <input type="checkbox" id="resident_" />
+                                        <input type="resident_" id="resident_" />
                                         <label for="resident_">Resindent?</label>
                                     </p>
                                 </div>
@@ -42,7 +42,7 @@
                                                     <span class="icon-minus"></span>
                                                 </a>
                                             </span>
-                                            <input type="text" id="passengers" class="pl-ns-value" value="1" maxlength=2>
+                                            <input type="text" name="passengers" id="passengers" class="pl-ns-value" value="1" maxlength=2>
                                             <span class="ns-btn">
                                                 <a data-dir="up">
                                                     <span class="icon-plus"></span>
@@ -65,12 +65,12 @@
                                 </div>
                                 <div class="input-field col s12 m4">
                                     <i class="material-icons prefix">date_range</i>
-                                    <input id="departure_date" type="text" class="datepicker validate">
+                                    <input name="departure_date" id="departure_date" type="text" class="datepicker validate">
                                     <label for="departure_date">Departure Date</label>
                                 </div>
                                 <div class="input-field col s12 m4">
                                     <i class="material-icons prefix">date_range</i>
-                                    <input id="return_date" type="text" class="datepicker validate">
+                                    <input name="return_date" id="return_date" type="text" class="datepicker validate">
                                     <label for="return_date">Return Date</label>
                                 </div>
                             </div>
