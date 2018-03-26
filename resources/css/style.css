@@ -8,6 +8,11 @@
  * Made By MaterializeCSS.com
  */
 
+ @import url('https://fonts.googleapis.com/css?family=Amaranth');
+ html {
+    font-family: 'Amaranth', sans-serif;
+  }
+
 .icon-block {
     padding: 0 15px;
 }
@@ -47,3 +52,69 @@
     padding-right: 10px;
     margin-right: 10px;
 }
+
+.number-spinner {
+    max-width: 150px;
+    line-height: 35px;
+    padding: 0;
+    margin: 0;
+    border-radius: 4px;
+    border: 2px solid #e2e2e2;
+    overflow: hidden;
+    position: relative;
+    display: table;
+  }
+  .number-spinner input {
+    height: 35px;
+    max-height: 35px;
+    line-height: 35px;
+    font-size: 1em;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    position: relative;
+    float: left;
+    width: 100%;
+    text-align: center;
+  }
+  .number-spinner input:focus {
+    outline: none;
+  }
+  .number-spinner .ns-btn {
+    position: relative;
+    font-size: 0;
+    white-space: nowrap;
+    vertical-align: middle;
+    display: table-cell;
+    cursor: pointer;
+  }
+  .number-spinner .ns-btn a {
+    height: 35px;
+    min-height: 35px;
+    width: 35px;
+    padding: 0;
+    max-width: 35px;
+    line-height: 35px;
+    border-radius: 0;
+    border: none !important;
+    text-align: center;
+    position: relative;
+    background: #e2e2e2;
+    color: #333;
+    display: inline-block;
+    vertical-align: middle;
+    text-decoration: none;
+  }
+  .number-spinner .ns-btn .icon-minus:after {
+    content: "\002212";
+    font-size: 30px;
+    line-height: 33px;
+    font-weight: bold;
+  }
+  .number-spinner .ns-btn .icon-plus:after {
+    content: "\00002B";
+    font-size: 33px;
+    line-height: 30px;
+    font-weight: bold;
+  }
+  

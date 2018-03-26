@@ -1,121 +1,93 @@
  {% set title = 'Dashboard' %} {% extends 'views/_layout.html' %} {% block content %}
-<div class="row">
-    <div class="col s12 m9">
 
-        <h2 class="space-left">Book A Trip</h2>
+<div class="row container">
 
-        <div class="col s12">
-            <form class="col s12">
-                <div class="row">
-                    <div class="input-field col s12 m4">
-                        <p>
-                            <input name="group1" type="radio" id="oneway" />
-                            <label for="oneway">One Way</label>
-                        </p>
-                    </div>
-                    <div class="input-field col s12 m4">
-                        <p>
-                            <input name="group1" type="radio" id="return_" />
-                            <label for="return_">Return</label>
-                        </p>
-                    </div>
-                    <div class="input-field col s12 m4">
-                        <p>
-                            <input type="checkbox" id="resident_" />
-                            <label for="resident_">Resindent?</label>
-                        </p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12 m4">
-                        <i class="material-icons prefix">directions_boat</i>
-                        <select name="_route">
-                            <option value="" disabled selected>Select Route</option>
-                            {% for p in _p%}
-                            <option value="{{ p }}">{{ p | toTitleCase }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="input-field col s12 m4">
-                        <i class="material-icons prefix">date_range</i>
-                        <input id="departure_date" type="text" class="datepicker validate">
-                        <label for="departure_date">Departure Date</label>
-                    </div>
-                    <div class="input-field col s12 m4">
-                        <i class="material-icons prefix">date_range</i>
-                        <input id="return_date" type="text" class="datepicker validate">
-                        <label for="return_date">Return Date</label>
-                    </div>
-                    <div class="input-field col s12 m4">
-                        <i class="material-icons prefix">face</i>
-                        <select name="passengers">
-                            <option value="" disabled selected>Passengers</option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
-                            <option>7</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <button class="btn waves-effect waves-light purple darken-4" type="submit" name="action">Find Schedules
-                        <i class="material-icons right">search</i>
-                    </button>
-                </div>
-            </form>
-            <br/>
-            <h4 class="space-left">Schedules</h4>
-            <table class="col s12 responsive-table highlight">
-                <thead>
-                    <tr>
-                        <th>Vessel</th>
-                        <th>From</th>
-                        <th>To</th>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for s in schedules %}
-                    <tr>
-                        <td>{{s.vessel}}</td>
-                        <td>{{s.departure_port}}</td>
-                        <td>{{s.destination}}</td>
-                        <td>{{s.departure_date | shortDate}}</td>
-                        <td>{{s.departure_time}}</td>
-                        <td>{{s.status}}</td>
-                    </tr>
-                    {% endfor%}
-
-                </tbody>
-            </table>
-
+    <div class="card horizontal">
+        <div class="card-image">
+            <img src="sidebar.png" height="400">
         </div>
+        <div class="card-stacked">
+            <div class="card-content">
+                <h2>Book A Trip</h2>
+                <div class="col s12">
+                    <div class="col s12">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s12 m2">
+                                    <p>
+                                        <input name="group1" type="radio" id="oneway" />
+                                        <label for="oneway">One Way</label>
+                                    </p>
+                                </div>
+                                <div class="input-field col s12 m2">
+                                    <p>
+                                        <input name="group1" type="radio" id="return_" />
+                                        <label for="return_">Return</label>
+                                    </p>
+                                </div>
+                                <div class="input-field col s12 m4">
+                                    <p>
+                                        <input type="checkbox" id="resident_" />
+                                        <label for="resident_">Resindent?</label>
+                                    </p>
+                                </div>
+                                <div class="input-field col s12 m4">
+                                    <p>
+                                        <div class="right">
+                                            <label style="text-align:bottom;">Passengers</label>
+                                        </div>
+                                        <div class="number-spinner right">
+                                            <span class="ns-btn">
+                                                <a data-dir="dwn">
+                                                    <span class="icon-minus"></span>
+                                                </a>
+                                            </span>
+                                            <input type="text" id="passengers" class="pl-ns-value" value="1" maxlength=2>
+                                            <span class="ns-btn">
+                                                <a data-dir="up">
+                                                    <span class="icon-plus"></span>
+                                                </a>
+                                            </span>
+                                        </div>
+                                    </p>
 
-    </div>
-    <div class="col s12 m3">
-        <!--   Icon Section   -->
-        <div class="row">
-            <div class="col s12">
-                <div class="icon-block">
-                    <br />
-                    <h5 class="center">Enjoy Comfort & Class</h5>
-                    <img src="inside.jpg" alt="interior" width="100%" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12 m4">
+                                    <i class="material-icons prefix">directions_boat</i>
+                                    <select name="_route">
+                                        <option value="" disabled selected>Select Route</option>
+                                        {% for p in _p%}
+                                        <option value="{{ p }}">{{ p | toTitleCase }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="input-field col s12 m4">
+                                    <i class="material-icons prefix">date_range</i>
+                                    <input id="departure_date" type="text" class="datepicker validate">
+                                    <label for="departure_date">Departure Date</label>
+                                </div>
+                                <div class="input-field col s12 m4">
+                                    <i class="material-icons prefix">date_range</i>
+                                    <input id="return_date" type="text" class="datepicker validate">
+                                    <label for="return_date">Return Date</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <button class="btn waves-effect waves-light purple darken-4 right" type="submit" name="action">Find Schedules
+                                    <i class="material-icons right">search</i>
+                                </button>
+                            </div>
+                        </form>
+                        <br/>
+                    </div>
                 </div>
             </div>
-
-            <div class="col s12">
-                <div class="icon-block">
-                    <br />
-                    <h5 class="center">Safe & Fast Vessels</h5>
-                    <img src="overview.jpg" alt="interior" width="100%" />
-                </div>
-            </div>
+            
         </div>
     </div>
+
+
 </div>
 {% endblock %}

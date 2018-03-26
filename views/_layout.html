@@ -12,69 +12,101 @@
     <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
 </head>
 
-<body>
-    <nav class="purple darken-4" role="navigation">
-        <div class="nav-wrapper">
-            <a id="logo-container" href="#" class="brand-logo space-left">BOOKINX<i class="material-icons left">terrain</i></a>
-            <ul class="right hide-on-med-and-down">
-                <li><a href="/">Book Now<i class="material-icons left">event_available</i></a></li>
-                <li><a href="#">Cargo Services<i class="material-icons left">flight_takeoff</i></a></li>
-                <li><a href="#">Move In<i class="material-icons left">local_shipping</i></a></li>
-                <li><a href="#">My Account<i class="material-icons left">sentiment_very_satisfied</i></a></li>
-            </ul>
-
-            <ul id="nav-mobile" class="side-nav">
-                <li>
-                    <a href="#"></a>
-                </li>
-                <li><a href="/">Book Now<i class="material-icons left">event_available</i></a></li>
-                <li><a href="#">Cargo Services<i class="material-icons left">flight_takeoff</i></a></li>
-                <li><a href="#">Move In<i class="material-icons left">local_shipping</i></a></li>
-                <li><a href="#">My Account<i class="material-icons left">sentiment_very_satisfied</i></a></li>
-            </ul>
-            <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
-        </div>
-    </nav>
-    <div class="section no-pad-bot" id="index-banner">
+<body class="purple accent-4">   
+    <ul id="slide-out" class="side-nav deep-purple darken-3">
+        <li>
+            <div class="user-view">
+                <div class="background">
+                    <img src="office.jpg">
+                </div>
+                <a href="#!user">
+                    <img class="circle" src="user.png">
+                </a>
+                <a href="#!name">
+                    <span class="white-text name">John Doe</span>
+                </a>
+                <a href="#!email">
+                    <span class="white-text email">jdandturk@gmail.com</span>
+                </a>
+            </div>
+        </li>
+        <li>
+            <a href="/" class="white-text">Book A Trip
+                <i class="material-icons left white-text">event_available</i>
+            </a>
+        </li>
+        <li>
+            <a href="#" class="white-text">Cargo Services
+                <i class="material-icons left white-text">flight_takeoff</i>
+            </a>
+        </li>
+        <li>
+            <a href="#" class="white-text">Move In
+                <i class="material-icons left white-text">local_shipping</i>
+            </a>
+        </li>
+        <li>
+            <a href="#" class="white-text">My Account
+                <i class="material-icons left white-text">sentiment_very_satisfied</i>
+            </a>
+        </li>
+    </ul>
+    <a href="#" data-activates="slide-out" class="button-collapse" style="margin-left: 10px;">
+        <i class="material-icons medium white-text">menu</i>        
+    </a>
+    <div class="section no-pad-bot" id="index-banner" style="padding-top: 0 !important;">
         <div>
             {% block content %} {% endblock %}
         </div>
     </div>
-
-
-
     <footer class="page-footer deep-purple darken-3">
         <div class="space-left">
             <div class="row">
                 <div class="col l6 s12">
                     <h5 class="white-text">About Bookinx</h5>
-                    <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
-
-
+                    <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would
+                        help support and continue development on this project and is greatly appreciated.</p>
                 </div>
                 <div class="col l3 s12">
                     <h5 class="white-text">Know More</h5>
                     <ul>
-                        <li><a class="white-text" href="#!">FAQs</a></li>
-                        <li><a class="white-text" href="#!">Terms & Conditions</a></li>
-                        <li><a class="white-text" href="#!">Partners</a></li>
-                        <li><a class="white-text" href="#!">Contact Us</a></li>
+                        <li>
+                            <a class="white-text" href="#!">FAQs</a>
+                        </li>
+                        <li>
+                            <a class="white-text" href="#!">Terms & Conditions</a>
+                        </li>
+                        <li>
+                            <a class="white-text" href="#!">Partners</a>
+                        </li>
+                        <li>
+                            <a class="white-text" href="#!">Contact Us</a>
+                        </li>
                     </ul>
                 </div>
                 <div class="col l3 s12">
                     <h5 class="white-text">Connect</h5>
                     <ul>
-                        <li><a class="white-text" href="#!">Facebook</a></li>
-                        <li><a class="white-text" href="#!">Twitter</a></li>
-                        <li><a class="white-text" href="#!">LinkedIn</a></li>
-                        <li><a class="white-text" href="#!">Instagram</a></li>
+                        <li>
+                            <a class="white-text" href="#!">Facebook</a>
+                        </li>
+                        <li>
+                            <a class="white-text" href="#!">Twitter</a>
+                        </li>
+                        <li>
+                            <a class="white-text" href="#!">LinkedIn</a>
+                        </li>
+                        <li>
+                            <a class="white-text" href="#!">Instagram</a>
+                        </li>
                     </ul>
                 </div>
             </div>
         </div>
         <div class="footer-copyright purple darken-4">
             <div class="space-left">
-                Powered by <a class="white-text" href="http://www.jmneontech.com">JM Neontech Limited</a> | All Rights Reserved
+                Powered by
+                <a class="white-text" href="http://www.jmneontech.com">JM Neontech Limited</a> | All Rights Reserved
             </div>
         </div>
     </footer>
