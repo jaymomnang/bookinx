@@ -28,8 +28,31 @@ exports.getSchedules = function(req, res) {
     var _data = req.body._route.split(" - ")
     req.body.departure_port = _data[0];
     req.body.destination = _data[1];
+    var isReturn = req.body.return_;
+    var trips = [];
 
-    res.render("index");
+    var _url = mc_api + "schedule/getTrips/single";
+    request.post({ headers: { 'content-type': 'application/x-www-form-urlencoded' }, url: _url, form: req.body }, function(error, response, body) {
+
+        if (error) return error;
+        var data = JSON.parse(body);
+        trips[0] = data;
+        
+        console.log(data);
+
+        if(isReturn == "on"){
+            request(_url, function(err, resp, p) {
+                if (err) return err;
+                var data1 = JSON.parse(p);
+                trips[1] = data1;
+            })
+        }
+        var ui_data = req.session;
+        console.log(trips);
+        res.render("index", { menus, ui_data, trips });
+
+    });
+
 };
 
 function blankSchedule() {
