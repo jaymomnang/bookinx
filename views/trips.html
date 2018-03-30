@@ -1,0 +1,98 @@
+ {% set title = 'Trips' %} {% extends 'views/_layout.html' %} {% block content %}
+
+<div class="row container">
+
+    <div class="card horizontal">
+        <div class="card-image hide-on-mobile">
+            <img src="sidebar.png" height="400">
+        </div>
+        <div class="card-stacked">
+            <div class="card-content">
+                <h2>Book A Trip</h2>
+                <div class="col s12">
+                    <div class="col s12">
+                        <form class="col s12" method="post">
+                            <div class="row">
+                                <div class="input-field col s12 m2">
+                                    <p>
+                                        <input name="oneway" type="radio" id="oneway" />
+                                        <label for="oneway">One Way</label>
+                                    </p>
+                                </div>
+                                <div class="input-field col s12 m2">
+                                    <p>
+                                        <input name="return_" type="radio" id="return_" />
+                                        <label for="return_">Return</label>
+                                    </p>
+                                </div>
+                                <div class="input-field col s12 m4">
+                                    <p>
+                                        <input type="checkbox" id="resident_" name="resident_"/>
+                                        <label for="resident_">Resindent?</label>
+                                    </p>
+                                </div>
+                                <div class="input-field col s12 m4">
+                                    <p>
+                                        <div class="right">
+                                            <label style="text-align:bottom;">Passengers</label>
+                                        </div>
+                                        <div class="number-spinner right">
+                                            <span class="ns-btn">
+                                                <a data-dir="dwn">
+                                                    <span class="icon-minus"></span>
+                                                </a>
+                                            </span>
+                                            <input type="text" name="passengers" id="passengers" class="pl-ns-value" value="1" maxlength=2>
+                                            <span class="ns-btn">
+                                                <a data-dir="up">
+                                                    <span class="icon-plus"></span>
+                                                </a>
+                                            </span>
+                                        </div>
+                                    </p>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12 m4">
+                                    <i class="material-icons prefix">directions_boat</i>
+                                    <select name="_route">
+                                        <option value="" disabled selected>Select Route</option>
+                                        {% for p in _p%}
+                                        <option value="{{ p }}">{{ p | toTitleCase }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="input-field col s12 m4">
+                                    <i class="material-icons prefix">date_range</i>
+                                    <input name="departure_date" id="departure_date" type="text" class="datepicker validate">
+                                    <label for="departure_date">Departure Date</label>
+                                </div>
+                                <div class="input-field col s12 m4">
+                                    <i class="material-icons prefix">date_range</i>
+                                    <input name="return_date" id="return_date" type="text" class="datepicker validate">
+                                    <label for="return_date">Return Date</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <button class="btn waves-effect waves-light purple darken-4 right" type="submit" name="action">Find Schedules
+                                    <i class="material-icons right">search</i>
+                                </button>
+                            </div>
+                        </form>
+                        <br/>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+
+</div>
+<script>
+    $(document).ready(function(){
+
+    });
+</script>
+{% endblock %}

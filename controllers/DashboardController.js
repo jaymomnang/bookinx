@@ -38,8 +38,6 @@ exports.getSchedules = function(req, res) {
         var data = JSON.parse(body);
         trips[0] = data;
         
-        console.log(data);
-
         if(isReturn == "on"){
             request(_url, function(err, resp, p) {
                 if (err) return err;
@@ -48,7 +46,6 @@ exports.getSchedules = function(req, res) {
             })
         }
         var ui_data = req.session;
-        console.log(trips);
         res.render("index", { menus, ui_data, trips });
 
     });

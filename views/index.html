@@ -3,7 +3,7 @@
 <div class="row container">
 
     <div class="card horizontal">
-        <div class="card-image">
+        <div class="card-image hide-on-mobile">
             <img src="sidebar.png" height="400">
         </div>
         <div class="card-stacked">
@@ -27,7 +27,7 @@
                                 </div>
                                 <div class="input-field col s12 m4">
                                     <p>
-                                        <input type="checkbox" id="resident_" name="resident_"/>
+                                        <input type="checkbox" id="resident_" name="resident_" />
                                         <label for="resident_">Resindent?</label>
                                     </p>
                                 </div>
@@ -84,10 +84,21 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </div>
 
 
 </div>
-{% endblock %}
+<script>
+    $(document).ready(function () {
+       
+        $("#return_").on(function () {
+            $("#return_date").removeAttr('disabled');
+        });
+
+        $("#return_").on(function () {
+            $("#return_date").attr({ 'disabled': 'disabled' });
+        });
+    });
+</script> {% endblock %}
