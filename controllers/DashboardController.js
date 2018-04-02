@@ -20,32 +20,48 @@ exports.getSchedules = function (req, res) {
     var _data = req.body._route.split(" - ")
     req.body.departure_port = _data[0];
     req.body.destination = _data[1];
+    req.body.count = 1;
     var isReturn = req.body.return_;
     var trips = [];
+
+    var b2 = [];
+    b2.destination = _data[0];
+    b2.departure_port = _data[1];
+    b2.departure_date = req.body.return_date;
 
     var _url = mc_api + "schedule/getTrips/single";
     request.post({ headers: { 'content-type': 'application/x-www-form-urlencoded' }, url: _url, form: req.body }, function (error, response, body) {
 
         if (error) return error;
         var data = JSON.parse(body);
-        data.arrivalTime = addHour(data.departure_time);
-        trips.push(data);
 
-
-
-        if (isReturn == "true") {
-            request(_url, function (err, resp, p) {
-                if (err) return err;
-                var data1 = JSON.parse(p);
-                data1.arrivalTime = addHour(data1.departure_time);
-                trips.push(data1);
-            })
+        for(var i = 0; i < data.length; i++){
+            if(data[i].schedule_id != 'undefined'){
+                data[i].arrivalTime = addHour(data[i].departure_time);
+            }  
         }
+              
+        trips.push(data);
         
-        
+        if (isReturn == "true") {
 
-        var ui_data = req.session;
-        res.render("trips", { menus, ui_data, trips });
+           request.post({ headers: { 'content-type': 'application/x-www-form-urlencoded' }, url: _url, form: b2 }, function (error, response, body) {
+                if (error) return error;
+                var data1 = JSON.parse(body);
+                for(var i = 0; i < data1.length; i++){
+                    if(data1[i].schedule_id != 'undefined'){
+                        data1[i].arrivalTime = addHour(data1[i].departure_time);
+                    }  
+                }           
+                trips.push(data1);
+
+                var ui_data = req.session;
+                res.render("trips", { menus, ui_data, trips });
+            })
+        }else{
+            var ui_data = req.session;
+            res.render("trips", { menus, ui_data, trips });
+        }        
     });
 
 };
