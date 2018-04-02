@@ -1,29 +1,21 @@
 'use strict';
-exports.loadDashboard = function(req, res) {
+exports.loadDashboard = function (req, res) {
     //TODO: Get dashboard data
-    var _url = mc_api + "schedule/";
-    request(_url, function(error, response, body) {
+    var _url = mc_api + "ports/";
+    request(_url, function (error, response, body) {
 
         if (error) return error;
-        var data = JSON.parse(body);
-        var schedules = data;
+        var _ports = JSON.parse(body);
+        var _p = getRoutes(_ports);
 
-
-        var _url3 = mc_api + "ports"
-        request(_url3, function(err, resp, p) {
-            if (err) return err;
-            var _ports = JSON.parse(p);
-            var _p = getRoutes(_ports);
-
-            var ui_data = req.session;
-            res.render("index", { menus, ui_data, schedules, _p });
-        })
+        var ui_data = req.session;
+        res.render("index", { menus, ui_data, _p });
 
     });
 
 };
 
-exports.getSchedules = function(req, res) {
+exports.getSchedules = function (req, res) {
     //TODO: load all flight/travel schedules.
     var _data = req.body._route.split(" - ")
     req.body.departure_port = _data[0];
@@ -32,22 +24,22 @@ exports.getSchedules = function(req, res) {
     var trips = [];
 
     var _url = mc_api + "schedule/getTrips/single";
-    request.post({ headers: { 'content-type': 'application/x-www-form-urlencoded' }, url: _url, form: req.body }, function(error, response, body) {
+    request.post({ headers: { 'content-type': 'application/x-www-form-urlencoded' }, url: _url, form: req.body }, function (error, response, body) {
 
         if (error) return error;
         var data = JSON.parse(body);
         trips[0] = data;
-        
-        if(isReturn == "on"){
-            request(_url, function(err, resp, p) {
+
+        if (isReturn == "true") {
+            request(_url, function (err, resp, p) {
                 if (err) return err;
                 var data1 = JSON.parse(p);
                 trips[1] = data1;
             })
         }
+
         var ui_data = req.session;
         res.render("index", { menus, ui_data, trips });
-
     });
 
 };

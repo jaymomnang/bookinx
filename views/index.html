@@ -1,10 +1,10 @@
  {% set title = 'Dashboard' %} {% extends 'views/_layout.html' %} {% block content %}
 
-<div class="row container">
+<div class="row" style="margin: 0px 50px 0px 50px;">
 
     <div class="card horizontal">
-        <div class="card-image hide-on-mobile">
-            <img src="sidebar.png" height="400">
+        <div class="card-image hide-on-med-and-down">
+            <img src="sidebar.png" height="450">
         </div>
         <div class="card-stacked">
             <div class="card-content">
@@ -13,48 +13,44 @@
                     <div class="col s12">
                         <form class="col s12" method="post">
                             <div class="row">
-                                <div class="input-field col s12 m2">
-                                    <p>
-                                        <input name="oneway" type="radio" id="oneway" />
-                                        <label for="oneway">One Way</label>
-                                    </p>
+                                <div class="input-field col s12 l4">
+                                    <i class="material-icons prefix">directions_boat</i>
+                                    <select name="return_">
+                                        <option value="true" selected>Return</option>
+                                        <option value="false">One Way</option>
+                                    </select>
                                 </div>
-                                <div class="input-field col s12 m2">
-                                    <p>
-                                        <input name="return_" type="radio" id="return_" />
-                                        <label for="return_">Return</label>
-                                    </p>
-                                </div>
-                                <div class="input-field col s12 m4">
+                                <div class="input-field col s12 l4">
                                     <p>
                                         <input type="checkbox" id="resident_" name="resident_" />
                                         <label for="resident_">Resindent?</label>
                                     </p>
                                 </div>
-                                <div class="input-field col s12 m4">
-                                    <p>
-                                        <div class="right">
+                                <!--<div class="input-field col s12 l4">
+                                    <div class="row">
+                                        <div class="col s6 l4">
                                             <label style="text-align:bottom;">Passengers</label>
                                         </div>
-                                        <div class="number-spinner right">
-                                            <span class="ns-btn">
-                                                <a data-dir="dwn">
-                                                    <span class="icon-minus"></span>
-                                                </a>
-                                            </span>
-                                            <input type="text" name="passengers" id="passengers" class="pl-ns-value" value="1" maxlength=2>
-                                            <span class="ns-btn">
-                                                <a data-dir="up">
-                                                    <span class="icon-plus"></span>
-                                                </a>
-                                            </span>
+                                        <div class="col s6 l8">
+                                            <div class="number-spinner">
+                                                <span class="ns-btn">
+                                                    <a data-dir="dwn">
+                                                        <span class="icon-minus"></span>
+                                                    </a>
+                                                </span>
+                                                <input type="text" name="passengers" id="passengers" class="pl-ns-value" value="1" maxlength=2>
+                                                <span class="ns-btn">
+                                                    <a data-dir="up">
+                                                        <span class="icon-plus"></span>
+                                                    </a>
+                                                </span>
+                                            </div>
                                         </div>
-                                    </p>
-
-                                </div>
+                                    </div>
+                                </div>-->
                             </div>
                             <div class="row">
-                                <div class="input-field col s12 m4">
+                                <div class="input-field col s12 l4">
                                     <i class="material-icons prefix">directions_boat</i>
                                     <select name="_route">
                                         <option value="" disabled selected>Select Route</option>
@@ -63,12 +59,12 @@
                                         {% endfor %}
                                     </select>
                                 </div>
-                                <div class="input-field col s12 m4">
+                                <div class="input-field col s12 l4">
                                     <i class="material-icons prefix">date_range</i>
                                     <input name="departure_date" id="departure_date" type="text" class="datepicker validate">
                                     <label for="departure_date">Departure Date</label>
                                 </div>
-                                <div class="input-field col s12 m4">
+                                <div class="input-field col s12 l4">
                                     <i class="material-icons prefix">date_range</i>
                                     <input name="return_date" id="return_date" type="text" class="datepicker validate">
                                     <label for="return_date">Return Date</label>
@@ -90,15 +86,4 @@
 
 
 </div>
-<script>
-    $(document).ready(function () {
-       
-        $("#return_").on(function () {
-            $("#return_date").removeAttr('disabled');
-        });
-
-        $("#return_").on(function () {
-            $("#return_date").attr({ 'disabled': 'disabled' });
-        });
-    });
-</script> {% endblock %}
+{% endblock %}
