@@ -28,18 +28,24 @@ exports.getSchedules = function (req, res) {
 
         if (error) return error;
         var data = JSON.parse(body);
-        trips[0] = data;
+        data.arrivalTime = addHour(data.departure_time);
+        trips.push(data);
+
+
 
         if (isReturn == "true") {
             request(_url, function (err, resp, p) {
                 if (err) return err;
                 var data1 = JSON.parse(p);
-                trips[1] = data1;
+                data1.arrivalTime = addHour(data1.departure_time);
+                trips.push(data1);
             })
         }
+        
+        
 
         var ui_data = req.session;
-        res.render("index", { menus, ui_data, trips });
+        res.render("trips", { menus, ui_data, trips });
     });
 
 };
@@ -61,6 +67,21 @@ function blankSchedule() {
 
     return schedule;
 };
+
+//add 1 hour to the current time frame
+var addHour = function(value) {
+    var endVal = value.substring(3, 5);
+    var currentVal = parseInt(value.substring(0, 2)) + 1;
+    var rVal = currentVal.toString();
+
+    if (rVal.length == 1){
+        rVal = "0" + rVal + ":" + endVal;
+    }else{
+        rVal = rVal + ":" + endVal;
+    }    
+    return rVal;    
+}
+
 
 //get the travel routes of the vessels
 function getRoutes(data) {
