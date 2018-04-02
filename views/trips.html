@@ -11,7 +11,15 @@
             </div>
             <div class="card-stacked">
                 <div class="card-content">
-                    <h4>Trip Details</h4>
+
+                    {% if trips.length > 1 %}
+                        <h4>First Leg Details</h4>
+                    {% endif %}
+                    
+                    {% if trips.length == 1 %}
+                        <h4>Trip Details</h4>
+                    {% endif %}
+
                     <div class="divider"></div>
                     <div class="col s12">
                         <div class="row">
@@ -36,19 +44,15 @@
                             </div>
 
                         </div>
-
-                        <div class="divider"></div>
-
                         <br/>
                     </div>
+                    <div class="divider"></div>
                 </div>
 
             </div>
         </div>
 
-        {% endfor %}
-
-        {% for trip in trips[1]%}
+        {% endfor %} {% for trip in trips[1]%}
 
         <div class="card horizontal">
             <div class="card-image hide-on-med-and-down">
@@ -56,7 +60,7 @@
             </div>
             <div class="card-stacked">
                 <div class="card-content">
-                    <h4>Return Details</h4>
+                    <h4>Second Leg Details</h4>
                     <div class="divider"></div>
                     <div class="col s12">
                         <div class="row">
@@ -81,15 +85,14 @@
                             </div>
 
                         </div>
-
-                        <div class="divider"></div>
-
                         <br/>
                     </div>
+                    <div class="divider"></div>
                 </div>
 
             </div>
         </div>
+
 
         {% endfor %}
 
