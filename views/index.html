@@ -15,7 +15,7 @@
                             <div class="row">
                                 <div class="input-field col s12 l4">
                                     <i class="material-icons prefix">directions_boat</i>
-                                    <select name="return_">
+                                    <select name="return_" id="return_">
                                         <option value="true" selected>Return</option>
                                         <option value="false">One Way</option>
                                     </select>
@@ -26,28 +26,6 @@
                                         <label for="resident_">Resindent?</label>
                                     </p>
                                 </div>
-                                <!--<div class="input-field col s12 l4">
-                                    <div class="row">
-                                        <div class="col s6 l4">
-                                            <label style="text-align:bottom;">Passengers</label>
-                                        </div>
-                                        <div class="col s6 l8">
-                                            <div class="number-spinner">
-                                                <span class="ns-btn">
-                                                    <a data-dir="dwn">
-                                                        <span class="icon-minus"></span>
-                                                    </a>
-                                                </span>
-                                                <input type="text" name="passengers" id="passengers" class="pl-ns-value" value="1" maxlength=2>
-                                                <span class="ns-btn">
-                                                    <a data-dir="up">
-                                                        <span class="icon-plus"></span>
-                                                    </a>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>-->
                             </div>
                             <div class="row">
                                 <div class="input-field col s12 l4">
@@ -83,7 +61,19 @@
 
         </div>
     </div>
-
-
 </div>
+
+<script>
+    $("#return_").change(function () {
+            var return_ = $("#return_").val();
+            if (return_ == "false") {
+                $("#return_date").attr({ "disabled": "true" });
+            } else {
+                $("#return_date").removeAttr("disabled");
+            }
+        });
+    $(document).ready(function () {
+        
+    });
+</script> 
 {% endblock %}

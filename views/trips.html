@@ -3,99 +3,133 @@
 <div class="row container">
     <form class="col s12" method="post">
 
-        {% for trip in trips[0]%}
+        <div class="row">
+            <div class="col s12">
+                <div class="card black">
+                    <div class="card-content white-text">
+                        <span class="card-title">Search Result</span>                       
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if trips.length > 0 %}
 
         <div class="card horizontal">
-            <div class="card-image hide-on-med-and-down">
-                <img src="sidebar.png" height="400">
-            </div>
             <div class="card-stacked">
                 <div class="card-content">
-
-                    {% if trips.length > 1 %}
-                        <h4>First Leg Details</h4>
-                    {% endif %}
-                    
-                    {% if trips.length == 1 %}
-                        <h4>Trip Details</h4>
-                    {% endif %}
-
+                    <h5>{{ trips[0][0].departure_date | shortDate }}: Trip Details</h5>
                     <div class="divider"></div>
+                    <div class="section">
+                        <div class="col s12 l5">
+                            <h4>{{ trips[0][0].departure_port }}</h4>
+                        </div>
+                        <div class="col s12 l2">
+                            <i class="hide-on-med-and-down medium material-icons prefix left">arrow_forward</i>
+                            <i class="hide-on-large-only medium material-icons prefix">arrow_downward</i>
+                        </div>
+                        <div class="col s12 l5">
+                            <h4>{{ trips[0][0].destination }}</h4>
+                        </div>
+                    </div>
                     <div class="col s12">
                         <div class="row">
 
-                            <div class="col s12 l5">
-                                <h5>From</h5>
-                                <h2>{{ trip.departure_port }}</h2>
-                                <h4>{{ trip.departure_time }}</h4>
-                            </div>
-                            <div class="col s12 l2">
-                                <h1>
-                                    <i class="hide-on-med-and-down large material-icons prefix left">arrow_forward</i>
-                                </h1>
-                                <h1>
-                                    <i class="hide-on-large-only large material-icons prefix">arrow_downward</i>
-                                </h1>
-                            </div>
-                            <div class="col s12 l5">
-                                <h5>To</h5>
-                                <h2>{{ trip.destination }}</h2>
-                                <h4>{{ trip.arrivalTime }}</h4>
-                            </div>
+                            <table class="col s12 responsive striped highlight">
+                                <tbody>
+                                    {% for trip in trips[0]%}
+                                    <tr>
+                                        <td>
+                                            <h6>{{ trip.departure_time }} - {{ trip.arrivalTime }}</h6>
+                                        </td>
+                                        <td>
+                                            <h6>{{ trip.vessel }}</h6>
+                                        </td>
+                                        <td>
+                                            <div class="input-fieldcol">
+                                                <p>
+                                                    <input type="radio" id="firstleg - {{trip.schedule_id}}" name="firstleg" />
+                                                    <label for="firstleg - {{trip.schedule_id}}">Select</label>
+                                                </p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
 
                         </div>
-                        <br/>
                     </div>
-                    <div class="divider"></div>
+
                 </div>
 
             </div>
         </div>
 
-        {% endfor %} {% for trip in trips[1]%}
+        {% endif %} {% if trips.length > 1 %}
 
         <div class="card horizontal">
-            <div class="card-image hide-on-med-and-down">
-                <img src="sidebar.png" height="400">
-            </div>
             <div class="card-stacked">
                 <div class="card-content">
-                    <h4>Second Leg Details</h4>
+
+                    <h5>{{ trips[1][0].departure_date | shortDate }}: Trip Details</h5>
                     <div class="divider"></div>
+                    <div class="section">
+                        <div class="col s12 l5">
+                            <h4>{{ trips[1][0].departure_port }}</h4>
+                        </div>
+                        <div class="col s12 l2">
+                            <i class="hide-on-med-and-down medium material-icons prefix left">arrow_forward</i>
+                            <i class="hide-on-large-only medium material-icons prefix">arrow_downward</i>
+                        </div>
+                        <div class="col s12 l5">
+                            <h4>{{ trips[1][0].destination }}</h4>
+                        </div>
+                    </div>
                     <div class="col s12">
                         <div class="row">
 
-                            <div class="col s12 l5">
-                                <h5>From</h5>
-                                <h2>{{ trip.departure_port }}</h2>
-                                <h4>{{ trip.departure_time }}</h4>
-                            </div>
-                            <div class="col s12 l2">
-                                <h1>
-                                    <i class="hide-on-med-and-down large material-icons prefix left">arrow_forward</i>
-                                </h1>
-                                <h1>
-                                    <i class="hide-on-large-only large material-icons prefix">arrow_downward</i>
-                                </h1>
-                            </div>
-                            <div class="col s12 l5">
-                                <h5>To</h5>
-                                <h2>{{ trip.destination }}</h2>
-                                <h4>{{ trip.arrivalTime }}</h4>
-                            </div>
+                            <table class="col s12 responsive striped highlight">
+                                <tbody>
+                                    {% for trip in trips[1]%}
+                                    <tr>
+                                        <td>
+                                            <h6>{{ trip.departure_time }} - {{ trip.arrivalTime }}</h6>
+                                        </td>
+                                        <td>
+                                            <h6>{{ trip.vessel }}</h6>
+                                        </td>
+                                        <td>
+                                            <div class="input-fieldcol">
+                                                <p>
+                                                    <input type="radio" id="secondleg - {{trip.schedule_id}}" name="secondleg" />
+                                                    <label for="secondleg - {{trip.schedule_id}}">Select</label>
+                                                </p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
 
                         </div>
-                        <br/>
                     </div>
-                    <div class="divider"></div>
+
                 </div>
 
             </div>
         </div>
 
+        {% endif %}
 
-        {% endfor %}
-
+        <div class="row">
+            <div class="col s12">
+                <div class="card black">
+                    <div class="card-action right">
+                        <a href="#" class="white-text">CONTINUE</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </form>
 </div>
