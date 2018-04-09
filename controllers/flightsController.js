@@ -1,20 +1,34 @@
 'use strict';
 
 //load page defaults
-exports.list_all_flights = function (req, res) {
+exports.list_all_flights = function (req, res) {  
 
-  var auth_url = mc_api + "flight/";
-  request(auth_url, function (error, response, body) {
-
-    if (error) return error;
-    var data = JSON.parse(body);
-    var flights = data;
+  var initializePromise = initialize();
+  initializePromise.then(function (result) {
+    userDetails = result;
+    console.log("Initialized user details");
+    // Use user details from here
+    console.log(userDetails)
 
     var ui_data = req.session;
-    res.render("flights", { menus, ui_data, flights });
-
-  });
+    res.render("flights", { menus, ui_data });
+  }, function (err) {
+    console.log(err);
+  })
 };
+
+var userDetails;
+var initialize = function() {  
+  var _url = mc_api + "schedule/";
+  // Return new promise 
+  return new Promise(function (resolve, reject) {
+
+    request(_url, function (error, response, body) {
+      if (error) reject(error);
+      resolve(JSON.parse(body));
+    });   
+  })
+}
 
 //post page data
 exports.add_flight = function (req, res) {

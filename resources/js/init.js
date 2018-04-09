@@ -1,6 +1,12 @@
 (function($) {    
     $(function() {
 
+      var today = new Date();
+      var dd = today.getDate();
+      var mm = today.getMonth(); //January is 0!
+      var yyyy = today.getFullYear();
+
+
         $('.button-collapse').sideNav();
         $('select').material_select();
         $('.modal').modal();
@@ -10,9 +16,10 @@
             today: 'Today',
             clear: 'Clear',
             close: 'Ok',
+            min: new Date(yyyy,mm,dd),
             closeOnSelect: true // Close upon selecting a date,
-        });
-
+        });       
+       
         $('.timepicker').pickatime({
             default: 'now', // Set default time: 'now', '1:30AM', '16:30'
             fromnow: 0, // set default time to * milliseconds from now (using with default = 'now')

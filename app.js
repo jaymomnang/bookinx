@@ -11,11 +11,19 @@ global.bodyParser = require('body-parser');
 global.request = require('request');
 global.mc_api = "http://localhost:6000/";
 global.urlpath = "http://localhost:6100/";
+global.helpers = require('./helpers/helpers');
 
 //configure and create custom nunjucks filters
 engines.requires.nunjucks = nunjucks.configure();
-engines.requires.nunjucks.addFilter('shortDate', function(dateValue) {
+
+engines.requires.nunjucks.addFilter('shortDate', function(dateValue) {    
     var d = dateValue.substring(0, 10);
+    return d;
+});
+
+engines.requires.nunjucks.addFilter('addDay', function(value) {    
+    var d = new Date(value);
+    d = d.setDate(d.getDate() + 1);
     return d;
 });
 

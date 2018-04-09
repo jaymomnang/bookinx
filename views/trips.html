@@ -1,18 +1,18 @@
  {% set title = 'Trips' %} {% extends 'views/_layout.html' %} {% block content %}
 
 <div class="row container">
-    <form class="col s12" method="post">
+    <form class="col s12" method="post" id="_sd">
 
         <div class="row">
             <div class="col s12">
                 <div class="card black">
                     <div class="card-content white-text">
-                        <span class="card-title">Search Result</span>                       
+                        <span class="card-title">Search Result</span>
                     </div>
                 </div>
             </div>
         </div>
-        {% if trips.length > 0 %}
+        {% if trips[0].length > 0 %}
 
         <div class="card horizontal">
             <div class="card-stacked">
@@ -45,9 +45,12 @@
                                             <h6>{{ trip.vessel }}</h6>
                                         </td>
                                         <td>
+                                            <h6>{{ trip.available_seats }} Seats Available</h6>
+                                        </td>
+                                        <td>
                                             <div class="input-fieldcol">
                                                 <p>
-                                                    <input type="radio" id="firstleg - {{trip.schedule_id}}" name="firstleg" />
+                                                    <input type="radio" id="firstleg - {{trip.schedule_id}}" name="firstleg" value="{{trip.schedule_id}}" />
                                                     <label for="firstleg - {{trip.schedule_id}}">Select</label>
                                                 </p>
                                             </div>
@@ -65,7 +68,7 @@
             </div>
         </div>
 
-        {% endif %} {% if trips.length > 1 %}
+        {% endif %} {% if trips[1].length > 0 %}
 
         <div class="card horizontal">
             <div class="card-stacked">
@@ -93,15 +96,18 @@
                                     {% for trip in trips[1]%}
                                     <tr>
                                         <td>
-                                            <h6>{{ trip.departure_time }} - {{ trip.arrivalTime }}</h6>
+                                            <h6>{{ trip.departure_time }} - {{ trip.arrivalTime }}</h6>                                            
                                         </td>
                                         <td>
                                             <h6>{{ trip.vessel }}</h6>
                                         </td>
                                         <td>
+                                            <h6>{{ trip.available_seats }} Seats Available</h6>
+                                        </td>
+                                        <td>
                                             <div class="input-fieldcol">
                                                 <p>
-                                                    <input type="radio" id="secondleg - {{trip.schedule_id}}" name="secondleg" />
+                                                    <input type="radio" id="secondleg - {{trip.schedule_id}}" name="secondleg" value="{{trip.schedule_id}}" />
                                                     <label for="secondleg - {{trip.schedule_id}}">Select</label>
                                                 </p>
                                             </div>
@@ -119,18 +125,35 @@
             </div>
         </div>
 
-        {% endif %}
-
+        {% endif %} {% if trips[0].length > 0 or trips[1].length > 0 %}
         <div class="row">
             <div class="col s12">
                 <div class="card black">
                     <div class="card-action right">
-                        <a href="#" class="white-text">CONTINUE</a>
+                        <a href="#" class="white-text" onclick="sendData()">CONTINUE</a>
+                        <input type="hidden" name="booktrip" value="booktrip"></input>
                     </div>
                 </div>
             </div>
         </div>
-
+        {% endif %} {% if trips[0].length == 0 and trips[1].length == 0 %}
+        <div class="row">
+            <div class="col s12">
+                <div class="card">
+                    <div class="card-content">
+                        <h3>No trips for the selected date. Please check other dates</h3>
+                    </div>
+                    <div class="card-action right black">
+                        <a href="/" class="white-text">TRY AGAIN</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
     </form>
 </div>
-{% endblock %}
+<script>
+    function sendData() {
+        document.getElementById("_sd").submit();
+    }
+</script> {% endblock %}
