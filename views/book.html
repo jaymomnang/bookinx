@@ -7,7 +7,7 @@
             <div class="col s12">
                 <div class="card black">
                     <div class="card-content white-text">
-                        <span class="card-title">Complete Booking</span>
+                        <span class="card-title">Select Seat</span>
                     </div>
                 </div>
             </div>
@@ -17,95 +17,74 @@
         <div class="card horizontal">
             <div class="card-stacked">
                 <div class="card-content">
-                    <h5>{{ trips[0].departure_date | shortDate }}</h5>
-                    <div class="divider"></div>
-                    <div class="section">
-                        <div class="col s12 l5">
+                    <div class="col s12 l5">
+                        <h5>{{ trips[0].departure_date | shortDate }}</h5>
+                        <div class="divider"></div>
+                        <div class="col s12">
                             <h4>{{ trips[0].departure_port }}</h4>
                         </div>
-                        <div class="col s12 l2">
-                            <i class="hide-on-med-and-down medium material-icons prefix left">arrow_forward</i>
-                            <i class="hide-on-large-only medium material-icons prefix">arrow_downward</i>
+                        <div class="col s12">
+                            <i class="small material-icons prefix">arrow_downward</i>
                         </div>
-                        <div class="col s12 l5">
+                        <div class="col s12">
                             <h4>{{ trips[0].destination }}</h4>
                         </div>
                     </div>
-                    <div class="col s12">
-                        <div class="row">
-
-                            <table class="col s12 responsive striped">
-                                <tbody>
-
-                                    <tr>
-                                        {% for p in prices %}
-                                        <td>
-                                            <div class="input-fieldcol">
-                                                <p>
-                                                    <input type="radio" id="firstleg_ {{p.seatClass}}" name="_toPrice" value="{{p.seatClass}} - {{p.resident_price}}" />
-                                                    <label for="firstleg_ {{p.seatClass}}">{{p.seatClass}} - Tsh{{p.resident_price}}</label>
-                                                </p>
-                                            </div>
-                                        </td>
-                                        {% endfor %}
-                                    </tr>
-
-                                </tbody>
-                            </table>
+                    <div class="col s12 l7">
+                        <div class="col s12">
+                            <br />
+                            <br /> {% for p in prices %}
+                            <div class="col s12 l6 black white-text" style="border: 2px solid #ccc;">
+                                <p>
+                                    <input type="hidden" name="data1" value="{{p.seatClass}} - {{p.resident_price}}-{{ trips[0].departure_port }}-{{ trips[0].destination }}-{{ trips[0].departure_time }}" />
+                                    <input class="center" type="radio" id="firstleg_ {{p.seatClass}}" name="_toPrice"/>
+                                    <label style="font-size: 20px" for="firstleg_ {{p.seatClass}}">{{p.seatClass}}
+                                        <br /> Tsh{{p.resident_price}}</label>
+                                </p>
+                            </div>
+                            {% endfor %}
 
                         </div>
                     </div>
-
                 </div>
 
             </div>
         </div>
 
-        {% endif %} {% if trips.length > 1 %}
+        {% endif %} {% if trips[1].departure_port != undefined %}
 
         <div class="card horizontal">
             <div class="card-stacked">
                 <div class="card-content">
-                    <h5>{{ trips[1].departure_date | shortDate }}</h5>
-                    <div class="divider"></div>
-                    <div class="section">
-                        <div class="col s12 l5">
+                    <div class="col s12 l5">
+                        <h5>{{ trips[1].departure_date | shortDate }}</h5>
+                        <div class="divider"></div>
+                        <div class="col s12">
                             <h4>{{ trips[1].departure_port }}</h4>
                         </div>
-                        <div class="col s12 l2">
-                            <i class="hide-on-med-and-down medium material-icons prefix left">arrow_forward</i>
-                            <i class="hide-on-large-only medium material-icons prefix">arrow_downward</i>
+                        <div class="col s12">
+                            <i class="small material-icons prefix">arrow_downward</i>
                         </div>
-                        <div class="col s12 l5">
+                        <div class="col s12">
                             <h4>{{ trips[1].destination }}</h4>
                         </div>
                     </div>
-                    <div class="col s12">
-                        <div class="row">
-
-                            <table class="col s12 responsive striped">
-                                <tbody>
-
-                                    <tr>
-                                        {% for p in prices %}
-                                        <td>
-                                            <div class="input-fieldcol">
-                                                <p>
-
-                                                    <input type="radio" id="secondleg_ {{p.seatClass}}" name="_fromPrice" value="{{p.seatClass}} - {{p.resident_price}}" />
-                                                    <label for="secondleg_ {{p.seatClass}}">{{p.seatClass}} - Tsh{{p.resident_price}}</label>
-                                                </p>
-                                            </div>
-                                        </td>
-                                        {% endfor %}
-                                    </tr>
-
-                                </tbody>
-                            </table>
+                    <div class="col s12 l7">
+                        <div class="col s12">
+                            <br />
+                            <br /> {% for p in prices %}
+                            <div class="col s12 l6 black white-text" style="border: 2px solid #ccc;">
+                                <p>
+                                    <input type="hidden" name="data2" value="{{p.seatClass}}-{{p.resident_price}}-{{ trips[1].departure_port }}-{{ trips[1].destination }}-{{ trips[1].departure_time }}" />
+                                    <input class="center" type="radio" id="firstleg_ {{p.seatClass}}" name="_fromPrice" value="{{p.seatClass}} - {{p.resident_price}}"/>
+                                    <label style="font-size: 20px" for="firstleg_ {{p.seatClass}}">{{p.seatClass}}
+                                        <br /> Tsh{{p.resident_price}}</label>
+                                </p>
+                            </div>
+                            {% endfor %}
 
                         </div>
                     </div>
-
                 </div>
 
             </div>
@@ -113,65 +92,11 @@
 
         {% endif %}
 
-        <div class="card horizontal">
-            <div class="card-stacked">
-                <div class="card-content">
-                    <h5>Passenger Information</h5>
-                    <div class="divider"></div>
-                    <div class="section">
-                        <div class="row">
-                            <div class="input-field col s12 l4">
-                                <i class="material-icons prefix">account_circle</i>
-                                <input name="firstname" id="firstname" type="text" class="validate">
-                                <label for="firstname">First Name</label>
-                            </div>
-                            <div class="input-field col s12 l4">
-                                <i class="material-icons prefix">account_circle</i>
-                                <input name="lastname" id="lastname" type="text" class="validate">
-                                <label for="lastname">Last Name</label>
-                            </div>
-                            <div class="input-field col s12 l4">
-                                <i class="material-icons prefix">email</i>
-                                <input name="email" id="email" type="email" class="validate">
-                                <label for="email">Email</label>
-                            </div>
-                            <div class="input-field col s12 l4">
-                                <i class="material-icons prefix">card_travel</i>
-                                <select name="id_type" id="id_type">
-                                    <option value="" disabled selected>Choose ID</option>
-                                    <option value="Passport">Passport</option>
-                                    <option value="PhotoID">Photo ID</option>
-                                    <option value="DriversLicense">Drivers License</option>
-                                </select>
-                            </div>
-                            <div class="input-field col s12 l4">
-                                <i class="material-icons prefix">assignment_ind</i>
-                                <input name="id_no" id="id_no" type="text" class="validate">
-                                <label for="id_no">Passport/ID No</label>
-                            </div>
-                            <!--<div class="input-field col s12 l4">
-                                <i class="material-icons prefix">email</i>
-                                <input name="email" id="email" type="email" class="validate">
-                                <label for="email">Email</label>
-                            </div>-->
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
-
-
         <div class="row">
             <div class="col s12">
-                <div class="card black">
-                    <div class="card-action right">
-                        <a href="#" class="white-text" onclick="sendData()">CONTINUE</a>
-                        <input type="hidden" name="booktrip" value="booktrip"></input>
-                    </div>
-                </div>
+                <a class="waves-effect waves-light btn-large left black" onclick="sendData()">CONTINUE BOOKING</a>
             </div>
+            <input type="hidden" name="booktrip" value="booktrip"></input>
         </div>
     </form>
 </div>

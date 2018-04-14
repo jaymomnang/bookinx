@@ -17,6 +17,9 @@ global.helpers = require('./helpers/helpers');
 engines.requires.nunjucks = nunjucks.configure();
 
 engines.requires.nunjucks.addFilter('shortDate', function(dateValue) {    
+    if(dateValue == undefined){
+        return "";
+    }
     var d = dateValue.substring(0, 10);
     return d;
 });
