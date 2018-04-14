@@ -9,7 +9,7 @@ var express = require('express'),
 
 global.bodyParser = require('body-parser');
 global.request = require('request');
-global.mc_api = "http://localhost:6000/";
+global.mc_api = "http://localhost:9000/";
 global.urlpath = "http://localhost:6100/";
 global.helpers = require('./helpers/helpers');
 

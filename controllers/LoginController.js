@@ -8,11 +8,12 @@ exports.getCurrentUser = function (req, res) {
 exports.authenticate = function (req, res) {
 
   if (req.body._route == "login") {
-    var auth_url = mc_api + "login/" + req.body.email + "/" + req.body.pwd;
-    request(auth_url, function (error, response, body) {
-      
-      var info = JSON.parse(body);
-      if (info.length == 1) {
+    var _url = mc_api + "login/" + req.body.email + "/" + req.body.pwd;
+    var usr;
+    var obj = helpers.getObjectFromDB(_url);
+
+    obj.then(function(result){
+      if (result.length == 1) {
         //prepare display data
         createSession(req, info)
         
@@ -20,7 +21,7 @@ exports.authenticate = function (req, res) {
         var session = req.session;
         res.statusMessage = "login successful";
         res.statusCode = 200;
-        res.url = "/dashboard";
+        res.url = "/";
         res.redirect("dashboard");
         
       } else {
@@ -28,8 +29,7 @@ exports.authenticate = function (req, res) {
         res.render("login");
         console.log(req.session.message);
       }
-
-    });
+    });    
   } else {
 
     //prepare attendance data

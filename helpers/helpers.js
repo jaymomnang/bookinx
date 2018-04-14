@@ -7,8 +7,6 @@ exports.getObjectFromDB = function (_url) {
             resolve(JSON.parse(body));
         });
     });
-
-
 }
 
 //add 1 hour to the current time frame
