@@ -4,9 +4,24 @@ exports.getObjectFromDB = function (_url) {
     return new Promise(function (resolve, reject) {
         request(_url, function (error, response, body) {
             if (error) reject(error);
-            resolve(JSON.parse(body));
+            resolve(parseData(body));
         });
     });
+}
+
+var parseData = function(data){
+    //console.log("--------------start data---------------");
+    //console.log(data);
+    //console.log("--------------end data---------------");
+    return JSON.parse(data);
+}
+
+exports.shortDate = function(dateValue){
+    if(dateValue == undefined){
+        return "";
+    }
+    var d = dateValue.substring(0, 10);
+    return d;
 }
 
 //add 1 hour to the current time frame

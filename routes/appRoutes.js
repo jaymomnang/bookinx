@@ -29,17 +29,16 @@ module.exports = function(app) {
         .get(dashboard.loadDashboard)
         .post(dashboard.getSchedules);
 
-    // Invoices Routes
-    app.route('/invoice')
-        .get(invoices.load_blank)
-        .post(invoices.add_invoice)
-        .put(invoices.update_invoice)
-        .delete(invoices.delete_invoice);
+    // Trips Routes
+    app.route('/trips')
+        .get(dashboard.getTrips)
+        .post(dashboard.getLoadSeats);
 
-    app.route('/invoice/:invoice_id')
-        .get(invoices.get_invoice);
+    app.route('/book')
+        .get(dashboard.getSeats)
+        .post(dashboard.completeBooking);
 
-    app.route('/invoicelist')
+    app.route('/complete')
         .get(invoices.list_all_invoices)
         .delete(invoices.delete_invoice);
 
@@ -99,8 +98,9 @@ module.exports = function(app) {
         .get(payments.print_attendance);
 
     // Dashboard Routes
-    app.route('/dashboard')
-        .get(dashboard.loadDashboard);
+    app.route('/home')
+        .get(dashboard.loadDashboard)
+        .post(dashboard.getSchedules);
 
     // Page Not Routes
     //app.route('/404')

@@ -35,12 +35,21 @@
                             <br />
                             <br /> {% for p in prices %}
                             <div class="col s12 l6 black white-text" style="border: 2px solid #ccc;">
-                                <p>
-                                    <input type="hidden" name="data1" value="{{p.seatClass}} - {{p.resident_price}}-{{ trips[0].departure_port }}-{{ trips[0].destination }}-{{ trips[0].departure_time }}" />
-                                    <input class="center" type="radio" id="firstleg_ {{p.seatClass}}" name="_toPrice"/>
-                                    <label style="font-size: 20px" for="firstleg_ {{p.seatClass}}">{{p.seatClass}}
-                                        <br /> Tsh{{p.resident_price}}</label>
-                                </p>
+                                
+                                {% if uidata.resident == 'on' %}
+                                    <p>                                    
+                                        <input class="center" type="radio" id="firstleg_{{p.seatClass}}" name="_toPrice" value="{{p.seatClass}} - {{p.resident_price}}"/>
+                                        <label style="font-size: 20px" for="firstleg_{{p.seatClass}}">{{p.seatClass}}
+                                            <br /> Tsh{{p.resident_price}}</label>
+                                    </p>
+                                {% endif %}
+                                {% if uidata.resident != 'on' %}
+                                    <p>                                    
+                                        <input class="center" type="radio" id="firstleg_{{p.seatClass}}" name="_toPrice" value="{{p.seatClass}} - {{p.non_resident_price}}"/>
+                                        <label style="font-size: 20px" for="firstleg_{{p.seatClass}}">{{p.seatClass}}
+                                            <br /> ${{p.non_resident_price}}</label>
+                                    </p>
+                                {% endif %}                                
                             </div>
                             {% endfor %}
 
@@ -74,12 +83,21 @@
                             <br />
                             <br /> {% for p in prices %}
                             <div class="col s12 l6 black white-text" style="border: 2px solid #ccc;">
-                                <p>
-                                    <input type="hidden" name="data2" value="{{p.seatClass}}-{{p.resident_price}}-{{ trips[1].departure_port }}-{{ trips[1].destination }}-{{ trips[1].departure_time }}" />
-                                    <input class="center" type="radio" id="firstleg_ {{p.seatClass}}" name="_fromPrice" value="{{p.seatClass}} - {{p.resident_price}}"/>
-                                    <label style="font-size: 20px" for="firstleg_ {{p.seatClass}}">{{p.seatClass}}
-                                        <br /> Tsh{{p.resident_price}}</label>
-                                </p>
+                                {% if uidata.resident == 'on' %}
+                                    <p>                                    
+                                        <input class="center" type="radio" id="secondleg_{{p.seatClass}}" name="_fromPrice" value="{{p.seatClass}} - {{p.resident_price}}"/>
+                                        <label style="font-size: 20px" for="secondleg_{{p.seatClass}}">{{p.seatClass}}
+                                            <br /> Tsh{{p.resident_price}}</label>
+                                    </p>
+                                {% endif %}
+                                {% if uidata.resident != 'on' %}
+                                    <p>                                    
+                                        <input class="center" type="radio" id="secondleg_{{p.seatClass}}" name="_fromPrice" value="{{p.seatClass}} - {{p.non_resident_price}}"/>
+                                        <label style="font-size: 20px" for="secondleg_{{p.seatClass}}">{{p.seatClass}}
+                                            <br /> ${{p.non_resident_price}}</label>
+                                    </p>
+                                {% endif %}
+                                
                             </div>
                             {% endfor %}
 
@@ -103,5 +121,5 @@
 <script>
     function sendData() {
         document.getElementById("_sd").submit();
-    }
+    }    
 </script> {% endblock %}

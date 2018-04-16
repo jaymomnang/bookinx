@@ -3,79 +3,105 @@ exports.loadDashboard = function (req, res) {
     //TODO: Get dashboard data
     var _url = mc_api + "ports/";
     var p = helpers.getObjectFromDB(_url);
-    p.then(function(result){
+    p.then(function (result) {
         var _ports = result;
         var _p = helpers.getRoutes(_ports);
-        var ui_data = req.session;
-        res.render("index", { menus, ui_data, _p });
+        var uidata = req.session;
+        res.render("index", { menus, uidata, _p });
     })
 
 };
 
 exports.getSchedules = function (req, res) {
-    if (req.body.booktrip == undefined) {
-        getTrips(req, res);
-    } else {
-        bookTrip(req, res);
-    }
+
+    req.session.route = req.body._route;
+    req.session.departure_date = new Date(req.body.departure_date);
+    req.session.return = req.body.return_;
+    req.session.resident = req.body.resident_;
+    req.session.return_date = new Date(req.body.return_date);
+    return res.redirect("/trips");
+
 };
 
 //queries database for available trips
-var getTrips = function (req, res) {
+exports.getTrips = function (req, res) {
     //TODO: load all flight/travel schedules.
-    var _data = req.body._route.split(" - ")
-    req.body.departure_port = _data[0];
-    req.body.destination = _data[1];
-    req.body.count = 1;
-    var isReturn = req.body.return_;
+    if (req.session.route == undefined) {
+        return res.redirect("/");
+    }
+
+    var data = req.session;
+    var _data = data.route.split(" - ");
+    data.departure_port = _data[0];
+    data.destination = _data[1];
+
     var trips = [];
 
     var b2 = [];
     b2.destination = _data[0];
     b2.departure_port = _data[1];
-    b2.departure_date = req.body.return_date;
+    b2.departure_date = data.return_date;
 
-    var _url = mc_api + "schedule/getTrips/single";
-    request.post({ headers: { 'content-type': 'application/x-www-form-urlencoded' }, url: _url, form: req.body }, function (error, response, body) {
+    var _url = mc_api + "schedule/" + data.departure_port + "/" + data.destination + "/" + data.departure_date;
+    var firstleg = helpers.getObjectFromDB(_url);
 
-        if (error) return error;
-        var data = JSON.parse(body);
-
-        for (var i = 0; i < data.length; i++) {
-            if (data[i].schedule_id != 'undefined') {
-                data[i].arrivalTime = helpers.addHour(data[i].departure_time);
+    firstleg.then(function (result) {
+   
+        for (var i = 0; i < result.length; i++) {
+            if (result[i].schedule_id != 'undefined') {
+                result[i].arrivalTime = helpers.addHour(result[i].departure_time);
             }
         }
+        trips.push(result);
 
-        trips.push(data);
-        if (isReturn == "true") {
+        if (data.return == "true") {
 
-            request.post({ headers: { 'content-type': 'application/x-www-form-urlencoded' }, url: _url, form: b2 }, function (error, response, body) {
-                if (error) return error;
-                var data1 = JSON.parse(body);
-                for (var i = 0; i < data1.length; i++) {
-                    if (data1[i].schedule_id != 'undefined') {
-                        data1[i].arrivalTime = helpers.addHour(data1[i].departure_time);
+            _url = mc_api + "schedule/" + b2.departure_port + "/" + b2.destination + "/" + b2.departure_date;
+            var secondleg = helpers.getObjectFromDB(_url);
+
+            secondleg.then(function (result_) {
+                for (var i = 0; i < result_.length; i++) {
+                    if (result_[i].schedule_id != 'undefined') {
+                        result_[i].arrivalTime = helpers.addHour(result_[i].departure_time);
                     }
                 }
-                trips.push(data1);
 
-                var ui_data = req.session;
-                res.render("trips", { menus, ui_data, trips });
-            })
-        } else {
-            var ui_data = req.session;
-            res.render("trips", { menus, ui_data, trips });
+                trips.push(result_);
+                req.session.trips = trips
+                var uidata = req.session;
+                
+                res.render("trips", { menus, uidata });
+            }, function (err) {
+                console.log(err);
+            });
         }
-    });
 
+        req.session.trips = trips        
+        var uidata = req.session;
+        res.render("trips", { menus, uidata });
+
+    }, function (err) {
+        console.log(err);
+    });
 }
 
-//book selected trips
-var bookTrip = function (req, res) {
+exports.getLoadSeats = function (req, res) {
+    req.session.firstleg = req.body.firstleg;
+    req.session.secondleg = req.body.secondleg;
+    return res.redirect("/book");
+};
 
-    var firstleg = req.body.firstleg;
-    var secondleg = req.body.secondleg;
+//book selected trips
+exports.getSeats = function (req, res) {
+
+    if(req.session.firstleg == undefined && req.session.firstleg == undefined){
+        return res.redirect("/");
+    }
+
+    console.log(req.session);
+
+    var firstleg = req.session.firstleg;
+    var secondleg = req.session.secondleg;
     var trips = [];
     var prices, trip1, trip2;
 
@@ -100,8 +126,8 @@ var bookTrip = function (req, res) {
 
                 trips[0] = trip1;
                 trips[1] = trip2;
-                var ui_data = req.session;
-                res.render("book", { menus, ui_data, trips, prices });
+                var uidata = req.session;
+                res.render("book", { menus, uidata, trips, prices });
 
             }, function (err) {
                 console.log(err);
@@ -109,3 +135,9 @@ var bookTrip = function (req, res) {
         })
     })
 }
+
+exports.completeBooking = function (req, res) {
+    req.session.toPrice = req.body._toPrice;
+    req.session.fromPrice = req.body._fromPrice;
+    return res.redirect("/complete");
+};

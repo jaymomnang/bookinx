@@ -7,28 +7,31 @@
             <div class="col s12">
                 <div class="card black">
                     <div class="card-content white-text">
-                        <span class="card-title">Search Result</span>
+                        <span class="card-title">Search Result</span>                        
                     </div>
                 </div>
             </div>
         </div>
-        {% if trips[0].length > 0 %}
+
+        
+
+        {% if uidata.trips[0].length > 0 %}
 
         <div class="card horizontal">
             <div class="card-stacked">
                 <div class="card-content">
-                    <h5>{{ trips[0][0].departure_date | shortDate }}: Trip Details</h5>
+                    <h5>{{ uidata.trips[0][0].departure_date | shortDate }}: Trip Details</h5>
                     <div class="divider"></div>
                     <div class="section">
                         <div class="col s12 l5">
-                            <h4>{{ trips[0][0].departure_port }}</h4>
+                            <h4>{{ uidata.trips[0][0].departure_port }}</h4>
                         </div>
                         <div class="col s12 l2">
                             <i class="hide-on-med-and-down medium material-icons prefix left">arrow_forward</i>
                             <i class="hide-on-large-only medium material-icons prefix">arrow_downward</i>
                         </div>
                         <div class="col s12 l5">
-                            <h4>{{ trips[0][0].destination }}</h4>
+                            <h4>{{ uidata.trips[0][0].destination }}</h4>
                         </div>
                     </div>
                     <div class="col s12">
@@ -36,7 +39,7 @@
 
                             <table class="col s12 responsive striped highlight">
                                 <tbody>
-                                    {% for trip in trips[0]%}
+                                    {% for trip in uidata.trips[0]%}
                                     <tr>
                                         <td>
                                             <h6>{{ trip.departure_time }} - {{ trip.arrivalTime }}</h6>
@@ -50,7 +53,7 @@
                                         <td>
                                             <div class="input-fieldcol">
                                                 <p>
-                                                    <input type="radio" id="firstleg - {{trip.schedule_id}}" name="firstleg" value="{{trip.schedule_id}}" />
+                                                    <input type="radio" class="trip" id="firstleg - {{trip.schedule_id}}" name="firstleg" value="{{trip.schedule_id}}" required/>
                                                     <label for="firstleg - {{trip.schedule_id}}">Select</label>
                                                 </p>
                                             </div>
@@ -68,24 +71,26 @@
             </div>
         </div>
 
-        {% endif %} {% if trips[1].length > 0 %}
+        {% endif %} 
+        
+        {% if uidata.trips[1].length > 0 %}
 
         <div class="card horizontal">
             <div class="card-stacked">
                 <div class="card-content">
 
-                    <h5>{{ trips[1][0].departure_date | shortDate }}: Trip Details</h5>
+                    <h5>{{ uidata.trips[1][0].departure_date | shortDate }}: Trip Details</h5>
                     <div class="divider"></div>
                     <div class="section">
                         <div class="col s12 l5">
-                            <h4>{{ trips[1][0].departure_port }}</h4>
+                            <h4>{{ uidata.trips[1][0].departure_port }}</h4>
                         </div>
                         <div class="col s12 l2">
                             <i class="hide-on-med-and-down medium material-icons prefix left">arrow_forward</i>
                             <i class="hide-on-large-only medium material-icons prefix">arrow_downward</i>
                         </div>
                         <div class="col s12 l5">
-                            <h4>{{ trips[1][0].destination }}</h4>
+                            <h4>{{ uidata.trips[1][0].destination }}</h4>
                         </div>
                     </div>
                     <div class="col s12">
@@ -93,7 +98,7 @@
 
                             <table class="col s12 responsive striped highlight">
                                 <tbody>
-                                    {% for trip in trips[1]%}
+                                    {% for trip in uidata.trips[1]%}
                                     <tr>
                                         <td>
                                             <h6>{{ trip.departure_time }} - {{ trip.arrivalTime }}</h6>                                            
@@ -107,7 +112,7 @@
                                         <td>
                                             <div class="input-fieldcol">
                                                 <p>
-                                                    <input type="radio" id="secondleg - {{trip.schedule_id}}" name="secondleg" value="{{trip.schedule_id}}" />
+                                                    <input type="radio" class="trip" id="secondleg - {{trip.schedule_id}}" name="secondleg" value="{{trip.schedule_id}}" required/>
                                                     <label for="secondleg - {{trip.schedule_id}}">Select</label>
                                                 </p>
                                             </div>
@@ -125,7 +130,9 @@
             </div>
         </div>
 
-        {% endif %} {% if trips[0].length > 0 or trips[1].length > 0 %}
+        {% endif %} 
+        
+        {% if uidata.trips[0].length > 0 or uidata.trips[1].length > 0 %}
         <div class="row">
             <div class="col s12">
                 <div class="card black">
@@ -136,7 +143,9 @@
                 </div>
             </div>
         </div>
-        {% endif %} {% if trips[0].length == 0 and trips[1].length == 0 %}
+        {% endif %} 
+        
+        {% if uidata.trips[0].length == 0 and uidata.trips.length < 2 %}
         <div class="row">
             <div class="col s12">
                 <div class="card">
@@ -154,6 +163,20 @@
 </div>
 <script>
     function sendData() {
-        document.getElementById("_sd").submit();
+        var _trips = $('.trip');
+        var i = 0;
+        var count = 0;
+        for( i == 0; i < _trips.length; i++){
+            if(_trips[i].checked == true){
+                count = count + 1;
+            }
+        }
+        
+        if(count > 0){
+            document.getElementById("_sd").submit();
+        }else{
+            alert("You must select a trip to continue");
+        }
+        
     }
 </script> {% endblock %}
