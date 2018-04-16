@@ -12,85 +12,87 @@
                 </div>
             </div>
         </div>
-        {% if trips.length > 0 %}
 
-        <div class="card horizontal">
-            <div class="card-stacked">
-                <div class="card-content">
+
+        <div id="loginModal" class="modal">
+            <div class="modal-content">
+                <h4>Returning Passenger Login</h4>
+                <div class="row">
                     <div class="col s12 l6">
-                        <h5>{{ trips[0].departure_date | shortDate }}</h5>
-                        <div class="divider"></div>
-                        <div class="section">
-                            <div class="col s12 l5">
-                                <h4>{{ trips[0].departure_port }}</h4>
-                            </div>
-                            <div class="col s12 l2">
-                                <i class="medium material-icons prefix">arrow_downward</i>
-                            </div>
-                            <div class="col s12 l5">
-                                <h4>{{ trips[0].destination }}</h4>
-                            </div>
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">email</i>
+                            <input name="userid" id="userid" type="email" class="validate">
+                            <label for="userid">Email</label>
                         </div>
                     </div>
                     <div class="col s12 l6">
-                        <div class="col s12">
-                            <div class="row">
-                                {% for p in prices %}
-                                <div class="col s6 l4">
-                                    <p>
-                                        <input type="radio" id="firstleg_ {{p.seatClass}}" name="_toPrice" value="{{p.seatClass}} - {{p.resident_price}}" />
-                                        <label for="firstleg_ {{p.seatClass}}">{{p.seatClass}} - Tsh{{p.resident_price}}</label>
-                                    </p>
-                                </div>
-                                {% endfor %}
-                            </div>
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">vpn_key</i>
+                            <input name="pwd" id="pwd" type="password" class="validate">
+                            <label for="pwd">Password</label>
                         </div>
                     </div>
+                    <input type="hidden" id="isLogin" name="isLogin" value="" />
                 </div>
-
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+                <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat">Login</a>
             </div>
         </div>
 
-        {% endif %} {% if trips[1].departure_port != undefined %}
+        <div id="psModal" class="modal">
+            <div class="modal-content">
+                <h4>Passenger Details</h4>
+                <div class="row">
+                    <div class="input-field col s12 l4">
+                        <i class="material-icons prefix">account_circle</i>
+                        <input name="firstname1" id="firstname1" type="text" class="validate">
+                        <label for="firstname1">First Name</label>
+                    </div>
+                    <div class="input-field col s12 l4">
+                        <i class="material-icons prefix">account_circle</i>
+                        <input name="lastname1" id="lastname1" type="text" class="validate">
+                        <label for="lastname1">Last Name</label>
+                    </div>
+                    <div class="input-field col s12 l4">
+                        <i class="material-icons prefix">card_travel</i>
+                        <select name="id_type1" id="id_type1">
+                            <option value="" disabled selected>Choose ID</option>
+                            <option value="Passport">Passport</option>
+                            <option value="PhotoID">Photo ID</option>
+                            <option value="DriversLicense">Drivers License</option>
+                        </select>
+                    </div>
+                    <div class="input-field col s12 l4">
+                        <i class="material-icons prefix">assignment_ind</i>
+                        <input name="id_no1" id="id_no1" type="text" class="validate">
+                        <label for="id_no1">Passport/ID No</label>
+                    </div>
 
-        <div class="card horizontal">
-            <div class="card-stacked">
-                <div class="card-content">
-                    <div class="col s12 l6">
-                        <h5>{{ trips[1].departure_date | shortDate }}</h5>
-                        <div class="divider"></div>
-                        <div class="section">
-                            <div class="col s12 l5">
-                                <h4>{{ trips[1].departure_port }}</h4>
-                            </div>
-                            <div class="col s12 l2">
-                                <i class="medium material-icons prefix">arrow_downward</i>
-                            </div>
-                            <div class="col s12 l5">
-                                <h4>{{ trips[1].destination }}</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col s12 l6">
-                        <div class="col s12">
-                            <div class="row">
-                                {% for p in prices %}
-                                <div class="col s6 l4">
-                                    <p>
-                                        <input type="radio" id="firstleg_ {{p.seatClass}}" name="_toPrice" value="{{p.seatClass}} - {{p.resident_price}}" />
-                                        <label for="firstleg_ {{p.seatClass}}">{{p.seatClass}} - Tsh{{p.resident_price}}</label>
-                                    </p>
-                                </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
                 </div>
-
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+                <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat">Save</a>
             </div>
         </div>
 
-        {% endif %}
+        <div class="row">
+            <div class="col s12">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="col s12 l4">
+                            <a class="waves-effect waves-light btn-large right black modal-trigger" href="#loginModal">RETURNING PASSENGER?</a>
+                        </div>
+                        <br />
+                        <br />
+                    </div>
+                    <!--<div class="card-action">
+                    </div>-->
+                </div>
+            </div>
+        </div>
 
         <div class="card horizontal">
             <div class="card-stacked">
@@ -134,6 +136,10 @@
                                 <label for="email">Email</label>
                             </div>-->
                         </div>
+                        <div class="col s12">
+                            <a class="waves-effect waves-light btn-large right black modal-trigger" href="#psModal">ADD PASSENGERS</a>
+                            <a class="waves-effect waves-light btn-large right black">MAKE PAYMENT</a>
+                        </div>
                     </div>
 
                 </div>
@@ -165,6 +171,10 @@
 </div>
 <script>
     function sendData() {
+        document.getElementById("_sd").submit();
+    }
+    function Login(){
+        $('#isLogin').val("true");
         document.getElementById("_sd").submit();
     }
 </script> {% endblock %}

@@ -1,27 +1,56 @@
 'use strict';
 
 //load page defaults
-exports.list_all_customers = function(req, res) {
+exports.getCustomerInfo = function(req, res) {
 
-  console.log(req.session.email);
-  if (req.session.email == undefined){
-    res.render("login");
-  }
-  else{
-
-    var auth_url = mc_api + "customer/";
-    request(auth_url, function (error, response, body) {
-
-      if (error) return error;
-      var data = JSON.parse(body);
-      req.session.customers = data;
-     
-    });
-
-  }
-
-
+  if (req.session.toPrice == undefined){
+    return res.redirect("/");
+  }  
+  var uidata = req.session;
+  res.render("complete", {menus, uidata});
 };
+
+//complete the booking process
+exports.finishBooking = function(req, res) {
+
+  if (req.session.toPrice == undefined){
+    return res.redirect("/");
+  } 
+
+  if(req.body.isLogin == "true"){
+    //authenticate
+  }
+  var uidata = req.session;
+  res.render("complete", {menus, uidata});
+};
+
+var authenticate = function(data){
+
+  var _url = mc_api + "login/" + data.userid + "/" + req.body.pwd;
+  var usr;
+  var obj = helpers.getObjectFromDB(_url);
+
+  obj.then(function(result){
+
+    if (result.length == 1) {
+
+      //prepare user data      
+      req.session.loggedIn = true;      
+      res.session.firstname = result.firstname;
+      res.session.lastname = result.lastname;
+      req.session.email = result.email;
+      res.session.id_type = result.id_type;
+      res.session.id_no = result.id_no;
+      var uidata = req.session;
+      res.render("complete", {menus, uidata});
+      
+    } else {
+      
+      var uidata = req.session;
+      res.render("complete", {msgTitle: 'Login Failed',msg : 'User authentication failed! Incorrect username or password', menus, uidata });
+    }
+  });
+}
 
 //post page data
 exports.add_customer = function(req, res) {

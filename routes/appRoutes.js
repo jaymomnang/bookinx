@@ -1,5 +1,5 @@
 'use strict';
-module.exports = function(app) {
+module.exports = function (app) {
     var invoices = require('../controllers/InvoicesController');
     var user = require('../controllers/userController');
     var login = require('../controllers/LoginController');
@@ -34,16 +34,18 @@ module.exports = function(app) {
         .get(dashboard.getTrips)
         .post(dashboard.getLoadSeats);
 
+    // seat booking Routes
     app.route('/book')
         .get(dashboard.getSeats)
         .post(dashboard.completeBooking);
 
+    //passenger details routes
     app.route('/complete')
-        .get(invoices.list_all_invoices)
-        .delete(invoices.delete_invoice);
+        .get(customers.getCustomerInfo)
+        .post(customers.finishBooking);
 
-    app.route('/invoicelist/invoice_id')
-        .post(invoices.get_invoice);
+    app.route('/customers/:customer_id')
+        .get(customers.get_customer);
 
     // schedules Routes
     app.route('/schedules')
@@ -51,6 +53,7 @@ module.exports = function(app) {
         .post(schedules.add_schedule)
         .put(schedules.update_schedule)
         .delete(schedules.delete_schedule);
+
     app.route('/schedules/:schedule_id')
         .get(schedules.get_schedule);
 
@@ -72,16 +75,6 @@ module.exports = function(app) {
 
     app.route('/flights/:flight_id')
         .get(flights.get_flight);
-
-    // Customers Routes
-    app.route('/customers')
-        .get(customers.list_all_customers)
-        .post(customers.add_customer)
-        .put(customers.update_customer)
-        .delete(customers.delete_customer);
-
-    app.route('/customers/:customer_id')
-        .get(customers.get_customer);
 
     // Products Routes
     app.route('/products')

@@ -35,21 +35,22 @@
                             <br />
                             <br /> {% for p in prices %}
                             <div class="col s12 l6 black white-text" style="border: 2px solid #ccc;">
-                                
+
                                 {% if uidata.resident == 'on' %}
-                                    <p>                                    
-                                        <input class="center" type="radio" id="firstleg_{{p.seatClass}}" name="_toPrice" value="{{p.seatClass}} - {{p.resident_price}}"/>
-                                        <label style="font-size: 20px" for="firstleg_{{p.seatClass}}">{{p.seatClass}}
-                                            <br /> Tsh{{p.resident_price}}</label>
-                                    </p>
+                                <p>
+                                    <input class="center seat" type="radio" id="firstleg_{{p.seatClass}}" name="_toPrice" value="{{p.seatClass}} - {{p.resident_price}}"
+                                    required/>
+                                    <label style="font-size: 20px" for="firstleg_{{p.seatClass}}">{{p.seatClass}}
+                                        <br /> Tsh{{p.resident_price}}</label>
+                                </p>
+                                {% endif %} {% if uidata.resident != 'on' %}
+                                <p>
+                                    <input class="center seat" type="radio" id="firstleg_{{p.seatClass}}" name="_toPrice" value="{{p.seatClass}} - {{p.non_resident_price}}"
+                                    required/>
+                                    <label style="font-size: 20px" for="firstleg_{{p.seatClass}}">{{p.seatClass}}
+                                        <br /> ${{p.non_resident_price}}</label>
+                                </p>
                                 {% endif %}
-                                {% if uidata.resident != 'on' %}
-                                    <p>                                    
-                                        <input class="center" type="radio" id="firstleg_{{p.seatClass}}" name="_toPrice" value="{{p.seatClass}} - {{p.non_resident_price}}"/>
-                                        <label style="font-size: 20px" for="firstleg_{{p.seatClass}}">{{p.seatClass}}
-                                            <br /> ${{p.non_resident_price}}</label>
-                                    </p>
-                                {% endif %}                                
                             </div>
                             {% endfor %}
 
@@ -84,20 +85,21 @@
                             <br /> {% for p in prices %}
                             <div class="col s12 l6 black white-text" style="border: 2px solid #ccc;">
                                 {% if uidata.resident == 'on' %}
-                                    <p>                                    
-                                        <input class="center" type="radio" id="secondleg_{{p.seatClass}}" name="_fromPrice" value="{{p.seatClass}} - {{p.resident_price}}"/>
-                                        <label style="font-size: 20px" for="secondleg_{{p.seatClass}}">{{p.seatClass}}
-                                            <br /> Tsh{{p.resident_price}}</label>
-                                    </p>
+                                <p>
+                                    <input class="center seat" type="radio" id="secondleg_{{p.seatClass}}" name="_fromPrice" value="{{p.seatClass}} - {{p.resident_price}}"
+                                    required/>
+                                    <label style="font-size: 20px" for="secondleg_{{p.seatClass}}">{{p.seatClass}}
+                                        <br /> Tsh{{p.resident_price}}</label>
+                                </p>
+                                {% endif %} {% if uidata.resident != 'on' %}
+                                <p>
+                                    <input class="center seat" type="radio" id="secondleg_{{p.seatClass}}" name="_fromPrice" value="{{p.seatClass}} - {{p.non_resident_price}}"
+                                    required/>
+                                    <label style="font-size: 20px" for="secondleg_{{p.seatClass}}">{{p.seatClass}}
+                                        <br /> ${{p.non_resident_price}}</label>
+                                </p>
                                 {% endif %}
-                                {% if uidata.resident != 'on' %}
-                                    <p>                                    
-                                        <input class="center" type="radio" id="secondleg_{{p.seatClass}}" name="_fromPrice" value="{{p.seatClass}} - {{p.non_resident_price}}"/>
-                                        <label style="font-size: 20px" for="secondleg_{{p.seatClass}}">{{p.seatClass}}
-                                            <br /> ${{p.non_resident_price}}</label>
-                                    </p>
-                                {% endif %}
-                                
+
                             </div>
                             {% endfor %}
 
@@ -114,12 +116,26 @@
             <div class="col s12">
                 <a class="waves-effect waves-light btn-large left black" onclick="sendData()">CONTINUE BOOKING</a>
             </div>
-            <input type="hidden" name="booktrip" value="booktrip"></input>
         </div>
     </form>
 </div>
 <script>
+    
     function sendData() {
-        document.getElementById("_sd").submit();
+        var seat = $('.seat');
+        var i = 0;
+        var count = 0;
+        for (i == 0; i < seat.length; i++) {
+            if (seat[i].checked == true) {
+                count = count + 1;
+            }
+        }
+
+        if (count > 0) {
+            document.getElementById("_sd").submit();
+        } else {
+            alert("You must select a seat to continue");
+        }
+        //document.getElementById("_sd").submit();
     }    
 </script> {% endblock %}
