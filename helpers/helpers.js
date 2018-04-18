@@ -1,3 +1,62 @@
+var pesapal = require('pesapal')({
+    consumerKey: 'v/KEjviYH1Srctruir2gqu0RuC69Zw2p',
+    consumerSecret: 'Wu6TOk5ZgpxdY0G2rOG9svt8thg=',
+    testing: false,
+});
+
+exports.processPayment = function (data) {
+    // post a direct order
+    
+    var postParams = {
+        'oauth_callback': urlpath + '/complete/'
+    }
+    var requestData = {
+        'Amount': data.totalAmt,
+        'Description': 'bookinx ferry booking ' + Date.now().toString(),
+        'Type': 'MERCHANT',
+        'Reference': 'BX0000000',
+        'PhoneNumber&Email': data.email,
+        'Email': data.email,
+        'PhoneNumber': data.email,
+        'Currency': data.currency,
+        'FirstName': data.firstname,
+        'LastName': data.lastname
+    }
+    var url = pesapal.postDirectOrder(postParams, requestData);
+
+    console.log(url);
+    return url;
+}
+
+exports.getPaymentStatus = function () {
+    // get order status
+    var postParams = {
+        'pesapal_merchant_reference': '000',
+        'pesapal_transaction_tracking_id': '000'
+    };
+    var url = pesapal.queryPaymentStatus(postParams);
+    return url;
+}
+
+exports.getPaymentStatus = function (_ref) {
+    // get order status by ref
+    var postParams = {
+        'pesapal_merchant_reference': _ref
+    };
+    var url = pesapal.queryPaymentStatusByMerchantRef(postParams);
+    return url;
+}
+
+
+exports.getPaymentDetails = function () {
+    // get detailed order status 
+    var postParams = {
+        'pesapal_merchant_reference': '000',
+        'pesapal_transaction_tracking_id': '000'
+    };
+    var url = pesapal.queryPaymentDetails(postParams);
+    return url;
+}
 
 //get objects from database
 exports.getObjectFromDB = function (_url) {
@@ -26,6 +85,11 @@ exports.shortDate = function (dateValue) {
 
 exports.createPassengerObj = function () {
     return { firstname: "", middlename: "", lastname: "", email: "", id_type: "", id_no: "", no: 0 };
+}
+
+exports.generate_oauth_nonce = function () {
+    var data = "";
+    return data;
 }
 
 exports.StringToNum = function (param) {

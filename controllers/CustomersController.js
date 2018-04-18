@@ -24,12 +24,19 @@ exports.finishBooking = function (req, res) {
     req.body.addpass = "false";
     addpassenger(req, res);
   }
+
+  if (req.body.addpass == "false" && req.body.isLogin == "false") {
+    //makePayment(req, res);
+
+  }
 };
 
 var addpassenger = function (req, res) {
   var p1 = req.session.addpass;
   var p = [];
   var data = req.body;
+
+  persistData(req);
 
   if (p1 != undefined) {
     p = p1;
@@ -84,6 +91,20 @@ var authenticate = function (req, res) {
   });
 }
 
+//make the final payment of the trip.
+var makePayment = function (req, res) {
+
+  var _url = helpers.processPayment(req.session);
+  var obj = helpers.getObjectFromDB(_url);
+
+  obj.then(function (result) {
+    console.log(result);
+  }, function (err) {
+    console.log(err);
+  });
+
+}
+
 //post page data
 exports.add_customer = function (req, res) {
 
@@ -107,6 +128,16 @@ exports.add_customer = function (req, res) {
   }
 };
 
+var persistData = function(req){
+  var data = req.body;
+  req.session.firstname = data.firstname;
+  req.session.lastname = data.lastname;
+  req.session.middlename = data.middlename;
+  req.session.email = data.email;
+  req.session.id_type = data.id_type;
+  req.session.id_no = data.id_no;
+
+}
 
 exports.get_customer = function (req, res) {
 

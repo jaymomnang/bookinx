@@ -14,9 +14,13 @@ exports.loadDashboard = function (req, res) {
 
 exports.getSchedules = function (req, res) {
 
-    req.session.cookie._expires = true;
-    req.session.cookie.httpOnly = false;
-    req.session.cookie.originalMaxAge = 900;
+    if (req.body.resident_ == 'on') {
+        req.session.currency = "TSh";
+        req.session.currencySymbol = "TSh";
+    } else {
+        req.session.currency = "USD";
+        req.session.currencySymbol = "$";
+    }
 
     req.session.route = req.body._route;
     req.session.departure_date = new Date(req.body.departure_date);
@@ -158,15 +162,7 @@ exports.completeBooking = function (req, res) {
 
         req.session.total = toVal[1] + fromVal[1];
         req.session.totalAmt = toVal[1] + fromVal[1];
-    }
-
-    if (req.session.resident == 'on') {
-        req.session.currency = "TSh";
-        req.session.currencySymbol = "TSh";
-    } else {
-        req.session.currency = "USD";
-        req.session.currencySymbol = "$";
-    }
+    }   
 
     return res.redirect("/complete");
 };
