@@ -14,6 +14,10 @@ exports.loadDashboard = function (req, res) {
 
 exports.getSchedules = function (req, res) {
 
+    req.session.cookie._expires = true;
+    req.session.cookie.httpOnly = false;
+    req.session.cookie.originalMaxAge = 900;
+
     req.session.route = req.body._route;
     req.session.departure_date = new Date(req.body.departure_date);
     req.session.return = req.body.return_;
@@ -46,7 +50,7 @@ exports.getTrips = function (req, res) {
     var firstleg = helpers.getObjectFromDB(_url);
 
     firstleg.then(function (result) {
-   
+
         for (var i = 0; i < result.length; i++) {
             if (result[i].schedule_id != 'undefined') {
                 result[i].arrivalTime = helpers.addHour(result[i].departure_time);
@@ -69,14 +73,14 @@ exports.getTrips = function (req, res) {
                 trips.push(result_);
                 req.session.trips = trips
                 var uidata = req.session;
-                
+
                 res.render("trips", { menus, uidata });
             }, function (err) {
                 console.log(err);
             });
         }
 
-        req.session.trips = trips        
+        req.session.trips = trips
         var uidata = req.session;
         res.render("trips", { menus, uidata });
 
@@ -94,11 +98,9 @@ exports.getLoadSeats = function (req, res) {
 //book selected trips
 exports.getSeats = function (req, res) {
 
-    if(req.session.firstleg == undefined && req.session.firstleg == undefined){
+    if (req.session.firstleg == undefined && req.session.firstleg == undefined) {
         return res.redirect("/");
     }
-
-    console.log(req.session);
 
     var firstleg = req.session.firstleg;
     var secondleg = req.session.secondleg;
@@ -126,6 +128,8 @@ exports.getSeats = function (req, res) {
 
                 trips[0] = trip1;
                 trips[1] = trip2;
+                req.session.trips = trips;
+
                 var uidata = req.session;
                 res.render("book", { menus, uidata, trips, prices });
 
@@ -137,7 +141,32 @@ exports.getSeats = function (req, res) {
 }
 
 exports.completeBooking = function (req, res) {
-    req.session.toPrice = req.body._toPrice;
-    req.session.fromPrice = req.body._fromPrice;
+
+    var toVal, fromVal;
+    if (req.body._toPrice != undefined) {
+        toVal = req.body._toPrice.split("-");
+        req.session.toSeat = toVal[0];
+        req.session.toPrice = toVal[1];
+        req.session.total = toVal[1];
+        req.session.totalAmt = toVal[1];
+    }
+
+    if (req.body._fromPrice != undefined) {
+        fromVal = req.body._fromPrice.split("-");
+        req.session.fromPrice = fromVal[1];
+        req.session.fromSeat = fromVal[0];
+
+        req.session.total = toVal[1] + fromVal[1];
+        req.session.totalAmt = toVal[1] + fromVal[1];
+    }
+
+    if (req.session.resident == 'on') {
+        req.session.currency = "TSh";
+        req.session.currencySymbol = "TSh";
+    } else {
+        req.session.currency = "USD";
+        req.session.currencySymbol = "$";
+    }
+
     return res.redirect("/complete");
 };

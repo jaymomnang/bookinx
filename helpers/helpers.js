@@ -9,19 +9,27 @@ exports.getObjectFromDB = function (_url) {
     });
 }
 
-var parseData = function(data){
+var parseData = function (data) {
     //console.log("--------------start data---------------");
     //console.log(data);
     //console.log("--------------end data---------------");
     return JSON.parse(data);
 }
 
-exports.shortDate = function(dateValue){
-    if(dateValue == undefined){
+exports.shortDate = function (dateValue) {
+    if (dateValue == undefined) {
         return "";
     }
     var d = dateValue.substring(0, 10);
     return d;
+}
+
+exports.createPassengerObj = function () {
+    return { firstname: "", middlename: "", lastname: "", email: "", id_type: "", id_no: "", no: 0 };
+}
+
+exports.StringToNum = function (param) {
+    return param === "" ? NaN : Number(param)
 }
 
 //add 1 hour to the current time frame
@@ -38,7 +46,7 @@ exports.addHour = function (value) {
 }
 
 //get the travel routes of the vessels
-exports.getRoutes = function(data) {
+exports.getRoutes = function (data) {
     var _sp = [];
     var i = 0;
     var index = 0;

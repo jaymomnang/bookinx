@@ -1,19 +1,17 @@
  {% set title = 'Book' %} {% extends 'views/_layout.html' %} {% block content %}
 
-<div class="row container">
+<div class="row" style="margin: 0px 50px 0px 50px;">
     <form class="col s12" method="post" id="_sd">
 
-        <div class="row">
-            <div class="col s12">
-                <div class="card black">
-                    <div class="card-content white-text">
-                        <span class="card-title">Complete Booking</span>
-                    </div>
+        <div class="col s12">
+            <div class="card black">
+                <div class="card-content white-text">
+                    <span class="card-title">Complete Booking</span>
                 </div>
             </div>
         </div>
 
-
+        <!--begin modals rendering-->
         <div id="loginModal" class="modal">
             <div class="modal-content">
                 <h4>Returning Passenger Login</h4>
@@ -37,7 +35,7 @@
             </div>
             <div class="modal-footer">
                 <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
-                <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat">Login</a>
+                <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="Login()">Login</a>
             </div>
         </div>
 
@@ -47,13 +45,23 @@
                 <div class="row">
                     <div class="input-field col s12 l4">
                         <i class="material-icons prefix">account_circle</i>
-                        <input name="firstname1" id="firstname1" type="text" class="validate">
+                        <input name="firstname1" id="firstname1" type="text" class="validate" value="">
                         <label for="firstname1">First Name</label>
                     </div>
                     <div class="input-field col s12 l4">
                         <i class="material-icons prefix">account_circle</i>
-                        <input name="lastname1" id="lastname1" type="text" class="validate">
+                        <input name="middlename1" id="middlename1" type="text" class="validate" value="">
+                        <label for="middlename1">Middle Name</label>
+                    </div>
+                    <div class="input-field col s12 l4">
+                        <i class="material-icons prefix">account_circle</i>
+                        <input name="lastname1" id="lastname1" type="text" class="validate" value="">
                         <label for="lastname1">Last Name</label>
+                    </div>
+                    <div class="input-field col s12 l4">
+                        <i class="material-icons prefix">email</i>
+                        <input name="email1" id="email1" type="email" class="validate" value="">
+                        <label for="email1">Email</label>
                     </div>
                     <div class="input-field col s12 l4">
                         <i class="material-icons prefix">card_travel</i>
@@ -66,115 +74,217 @@
                     </div>
                     <div class="input-field col s12 l4">
                         <i class="material-icons prefix">assignment_ind</i>
-                        <input name="id_no1" id="id_no1" type="text" class="validate">
+                        <input name="id_no1" id="id_no1" type="text" class="validate" value="">
                         <label for="id_no1">Passport/ID No</label>
                     </div>
-
+                    <input type="hidden" name="addpass" id="addpass" value="false" />
                 </div>
             </div>
             <div class="modal-footer">
                 <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
-                <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat">Save</a>
+                <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="addpass()">Add</a>
             </div>
         </div>
+        <!--end modals rendering-->
 
-        <div class="row">
-            <div class="col s12">
-                <div class="card">
-                    <div class="card-content">
-                        <div class="col s12 l4">
-                            <a class="waves-effect waves-light btn-large right black modal-trigger" href="#loginModal">RETURNING PASSENGER?</a>
-                        </div>
-                        <br />
-                        <br />
-                    </div>
-                    <!--<div class="card-action">
-                    </div>-->
-                </div>
-            </div>
-        </div>
-
-        <div class="card horizontal">
-            <div class="card-stacked">
+        <!--begin login controls rendering-->
+        {% if uidata.loggedIn == undefined %}
+        <div class="col s12">
+            <div class="card">
                 <div class="card-content">
-                    <h5>Passenger Information</h5>
-                    <div class="divider"></div>
-                    <div class="section">
-                        <div class="row">
-                            <div class="input-field col s12 l4">
-                                <i class="material-icons prefix">account_circle</i>
-                                <input name="firstname" id="firstname" type="text" class="validate">
-                                <label for="firstname">First Name</label>
-                            </div>
-                            <div class="input-field col s12 l4">
-                                <i class="material-icons prefix">account_circle</i>
-                                <input name="lastname" id="lastname" type="text" class="validate">
-                                <label for="lastname">Last Name</label>
-                            </div>
-                            <div class="input-field col s12 l4">
-                                <i class="material-icons prefix">email</i>
-                                <input name="email" id="email" type="email" class="validate">
-                                <label for="email">Email</label>
-                            </div>
-                            <div class="input-field col s12 l4">
-                                <i class="material-icons prefix">card_travel</i>
-                                <select name="id_type" id="id_type">
-                                    <option value="" disabled selected>Choose ID</option>
-                                    <option value="Passport">Passport</option>
-                                    <option value="PhotoID">Photo ID</option>
-                                    <option value="DriversLicense">Drivers License</option>
-                                </select>
-                            </div>
-                            <div class="input-field col s12 l4">
-                                <i class="material-icons prefix">assignment_ind</i>
-                                <input name="id_no" id="id_no" type="text" class="validate">
-                                <label for="id_no">Passport/ID No</label>
-                            </div>
-                            <!--<div class="input-field col s12 l4">
-                                <i class="material-icons prefix">email</i>
-                                <input name="email" id="email" type="email" class="validate">
-                                <label for="email">Email</label>
-                            </div>-->
-                        </div>
-                        <div class="col s12">
-                            <a class="waves-effect waves-light btn-large right black modal-trigger" href="#psModal">ADD PASSENGERS</a>
-                            <a class="waves-effect waves-light btn-large right black">MAKE PAYMENT</a>
-                        </div>
-                    </div>
-
+                        <a class="waves-effect waves-light btn-large right black modal-trigger" href="#loginModal">RETURNING PASSENGER?</a>
+                    <br />
+                    <br />
                 </div>
-
             </div>
         </div>
-
+        {% endif %}
+        <!--end login controls rendering-->
 
         <div class="row">
-            <div class="col s12">
-                <div class="card">
-                    <div class="card-content">
-                        <div class="col s12 m6">
-                            <a class="waves-effect waves-light btn-large left black" onclick="sendData()">CONTINUE AS GUEST</a>
+            <!--begin travel costs-->
+            <div class="col s12 l4">
+                <div class="card horizontal">
+                    <div class="card-stacked">
+                        <div class="card-content">
+                            {% if uidata.trips[0] != undefined %}
+                            <div class="row">
+                                <h6>{{ uidata.trips[0].departure_date | shortDate | addDay }}</h6>
+                                <div class="divider"></div>
+                                <div class="col s12">
+                                    <h5>{{ uidata.trips[0].departure_port }}</h5>
+                                </div>
+                                <div class="col s12">
+                                    <i class="small material-icons prefix">arrow_downward</i>
+                                </div>
+                                <div class="col s12">
+                                    <h5>{{ uidata.trips[0].destination }}</h5>
+                                </div>
+                                <div class="divider"></div>
+                                <div class="col s12">
+                                    <h6>{{ uidata.toSeat }}: {{ uidata.currencySymbol }}{{ uidata.toPrice }} x ( {{ uidata.addpass.length
+                                        | AddOne }})</h6>
+                                </div>
+                                <div class="divider"></div>
+                            </div>
+                            {% endif %} {% if uidata.trips[1] != undefined %}
+                            <div class="row">
+                                <h6>{{ uidata.trips[1].departure_date | shortDate | addDay }}</h6>
+                                <div class="divider"></div>
+                                <div class="col s12">
+                                    <h5>{{ uidata.trips[1].departure_port }}</h5>
+                                </div>
+                                <div class="col s12">
+                                    <i class="small material-icons prefix">arrow_downward</i>
+                                </div>
+                                <div class="col s12">
+                                    <h5>{{ uidata.trips[1].destination }}</h5>
+                                </div>
+                                <div class="divider"></div>
+                                <div class="col s12">
+                                    <h6>{{ uidata.fromSeat }}: {{ uidata.currencySymbol }}{{ uidata.fromPrice }} x ( {{ uidata.addpass.length
+                                        | AddOne }})</h6>
+                                </div>
+                                <div class="divider"></div>
+                            </div>
+                            {% endif %}
+                            <p>
+                                <h5 style="font-weight:bold;">TOTAL: {{ uidata.currencySymbol }}{{ uidata.totalAmt }}</h5>
+                            </p>
+
                         </div>
-                        <div class="col s12 m6">
-                            <a class="waves-effect waves-light btn-large right black" onclick="sendData()">CONTINUE AS EXISTING PASSENGER</a>
-                        </div>
-                        <input type="hidden" name="booktrip" value="booktrip"></input>
-                        <br />
-                        <br />
                     </div>
-                    <!--<div class="card-action">
-                    </div>-->
                 </div>
             </div>
+            <!--end travel costs-->
+            <!--begin passenger(s) details-->
+            <div class="col s12 l8">
+                <div class="card horizontal">
+                    <div class="card-stacked">
+                        <div class="card-content">
+                            <h5>Passenger(s) Information</h5>
+                            <div class="divider"></div>
+                            <div class="section">
+                                <div class="row">
+                                    <div class="input-field col s12 l4">
+                                        <i class="material-icons prefix">account_circle</i>
+                                        <input name="firstname" id="firstname" type="text" class="validate" value="{{ uidata.firstname }}">
+                                        <label for="firstname">First Name</label>
+                                    </div>
+                                    <div class="input-field col s12 l4">
+                                        <i class="material-icons prefix">account_circle</i>
+                                        <input name="middlename" id="middlename" type="text" class="validate" value="{{ uidata.middlename }}">
+                                        <label for="middlename">Middle Name</label>
+                                    </div>
+                                    <div class="input-field col s12 l4">
+                                        <i class="material-icons prefix">account_circle</i>
+                                        <input name="lastname" id="lastname" type="text" class="validate" value="{{ uidata.lastname }}">
+                                        <label for="lastname">Last Name</label>
+                                    </div>
+                                    <div class="input-field col s12 l4">
+                                        <i class="material-icons prefix">email</i>
+                                        <input name="email" id="email" type="email" class="validate" value="{{ uidata.email }}">
+                                        <label for="email">Email</label>
+                                    </div>
+                                    <div class="input-field col s12 l4">
+                                        <i class="material-icons prefix">card_travel</i>
+
+                                        <select name="id_type" id="id_type">
+                                            <option value="" disabled selected>Choose ID</option>
+                                            <option value="Passport">Passport</option>
+                                            <option value="PhotoID">Photo ID</option>
+                                            <option value="DriversLicense">Drivers License</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-field col s12 l4">
+                                        <i class="material-icons prefix">assignment_ind</i>
+                                        <input name="id_no" id="id_no" type="text" class="validate" value="{{ uidata.id_no }}">
+                                        <label for="id_no">Passport/ID No</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {% for p in uidata.addpass %}
+                            <div class="divider"></div>
+                            <h6>Passenger {{ p.no + 1 }}</h6>
+                            <div class="section">
+                                <div class="row">
+                                    <div class="input-field col s12 l4">
+                                        <i class="material-icons prefix">account_circle</i>
+                                        <input name="firstname_{{ p.no }}" id="firstname_{{ p.no }}" type="text" class="validate" value="{{ p.firstname }}" disabled>
+                                        <label for="firstname_{{ p.no }}">First Name</label>
+                                    </div>
+                                    <div class="input-field col s12 l4">
+                                        <i class="material-icons prefix">account_circle</i>
+                                        <input name="middlename_{{ p.no }}" id="middlename_{{ p.no }}" type="text" class="validate" value="{{ p.middlename }}" disabled>
+                                        <label for="middlename_{{ p.no }}">Middle Name</label>
+                                    </div>
+                                    <div class="input-field col s12 l4">
+                                        <i class="material-icons prefix">account_circle</i>
+                                        <input name="lastname_{{ p.no }}" id="lastname_{{ p.no }}" type="text" class="validate" value="{{ p.lastname }}" disabled>
+                                        <label for="lastname">Last Name</label>
+                                    </div>
+                                    <div class="input-field col s12 l4">
+                                        <i class="material-icons prefix">email</i>
+                                        <input name="email_{{ p.no }}" id="email_{{ p.no }}" type="email" class="validate" value="{{ p.email }}" disabled>
+                                        <label for="email_{{ p.no }}">Email</label>
+                                    </div>
+                                    <div class="input-field col s12 l4">
+                                        <i class="material-icons prefix">card_travel</i>
+                                        <input name="id_type_{{ p.no }}" id="id_type_{{ p.no }}" type="text" class="validate" value="{{ p.id_type }}" disabled>
+                                        <label for="id_type_{{ p.no }}">ID Doc Type</label>
+                                    </div>
+                                    <div class="input-field col s12 l4">
+                                        <i class="material-icons prefix">assignment_ind</i>
+                                        <input name="id_no_{{ p.no }}" id="id_no_{{ p.no }}" type="text" class="validate" value="{{ p.id_no }}" disabled>
+                                        <label for="id_no">Passport/ID No</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {% endfor %}
+                            <div class="col s12">
+                                <a class="waves-effect waves-light btn-large black modal-trigger" href="#psModal">ADD PASSENGERS</a>
+                                <a class="waves-effect waves-light btn-large black right" onclick="sendData()">COMPLETE BOOKING</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <!--end passenger(s) details-->
         </div>
     </form>
 </div>
 <script>
     function sendData() {
+        $('#isLogin').val("false");
+        $('#addpass').val("false");
         document.getElementById("_sd").submit();
     }
-    function Login(){
+    function Login() {
         $('#isLogin').val("true");
+        $('#addpass').val("false");
         document.getElementById("_sd").submit();
     }
+
+    function addpass() {
+        $('#isLogin').val("false");
+        $('#addpass').val("true");
+        document.getElementById("_sd").submit();
+    }
+    function setSelectedIndex(s) {
+        var s = document.getElementById('id_type');
+        var v = '{{ uidata.id_type }}';
+        for (var i = 0; i < s.options.length; i++) {
+            if (s.options[i].text == v) {
+                s.options[i].selected = true;
+                return;
+            }
+        }
+    }
+    setSelectedIndex();
+
+    //0054687202
 </script> {% endblock %}

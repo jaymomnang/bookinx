@@ -16,11 +16,10 @@
 
 
         {% if uidata.trips[0].length > 0 %}
-
         <div class="card horizontal">
             <div class="card-stacked">
                 <div class="card-content">
-                    <h5>{{ uidata.trips[0][0].departure_date | shortDate }}: Trip Details</h5>
+                    <h5>{{ uidata.trips[0][0].departure_date | shortDate | addDay }}: Trip Details</h5>
                     <div class="divider"></div>
                     <div class="section">
                         <div class="col s12 l5">
@@ -77,7 +76,7 @@
             <div class="card-stacked">
                 <div class="card-content">
 
-                    <h5>{{ uidata.trips[1][0].departure_date | shortDate }}: Trip Details</h5>
+                    <h5>{{ uidata.trips[1][0].departure_date | shortDate | addDay }}: Trip Details</h5>
                     <div class="divider"></div>
                     <div class="section">
                         <div class="col s12 l5">

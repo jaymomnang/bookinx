@@ -18,7 +18,7 @@
             <div class="card-stacked">
                 <div class="card-content">
                     <div class="col s12 l5">
-                        <h5>{{ trips[0].departure_date | shortDate }}</h5>
+                        <h5>{{ trips[0].departure_date | shortDate | addDay }}</h5>
                         <div class="divider"></div>
                         <div class="col s12">
                             <h4>{{ trips[0].departure_port }}</h4>
@@ -67,7 +67,7 @@
             <div class="card-stacked">
                 <div class="card-content">
                     <div class="col s12 l5">
-                        <h5>{{ trips[1].departure_date | shortDate }}</h5>
+                        <h5>{{ trips[1].departure_date | shortDate | addDay }}</h5>
                         <div class="divider"></div>
                         <div class="col s12">
                             <h4>{{ trips[1].departure_port }}</h4>
@@ -86,14 +86,14 @@
                             <div class="col s12 l6 black white-text" style="border: 2px solid #ccc;">
                                 {% if uidata.resident == 'on' %}
                                 <p>
-                                    <input class="center seat" type="radio" id="secondleg_{{p.seatClass}}" name="_fromPrice" value="{{p.seatClass}} - {{p.resident_price}}"
+                                    <input class="center seat" type="radio" id="secondleg_{{p.seatClass}}" name="_fromPrice" value="{{p.seatClass}}-{{p.resident_price}}"
                                     required/>
                                     <label style="font-size: 20px" for="secondleg_{{p.seatClass}}">{{p.seatClass}}
                                         <br /> Tsh{{p.resident_price}}</label>
                                 </p>
                                 {% endif %} {% if uidata.resident != 'on' %}
                                 <p>
-                                    <input class="center seat" type="radio" id="secondleg_{{p.seatClass}}" name="_fromPrice" value="{{p.seatClass}} - {{p.non_resident_price}}"
+                                    <input class="center seat" type="radio" id="secondleg_{{p.seatClass}}" name="_fromPrice" value="{{p.seatClass}}-{{p.non_resident_price}}"
                                     required/>
                                     <label style="font-size: 20px" for="secondleg_{{p.seatClass}}">{{p.seatClass}}
                                         <br /> ${{p.non_resident_price}}</label>
