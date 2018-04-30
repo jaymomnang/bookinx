@@ -8,6 +8,8 @@ exports.loadDashboard = function (req, res) {
         var _p = helpers.getRoutes(_ports);
         var uidata = req.session;
         res.render("index", { menus, uidata, _p });
+    },function (err) {
+        console.log(err);
     })
 
 };
@@ -162,7 +164,7 @@ exports.completeBooking = function (req, res) {
 
         req.session.total = toVal[1] + fromVal[1];
         req.session.totalAmt = toVal[1] + fromVal[1];
-    }   
+    }
 
     return res.redirect("/complete");
 };
