@@ -1,4 +1,4 @@
- {% set title = 'Dashboard' %} {% extends 'views/_layout.html' %} {% block content %}
+ {% set title = 'Home' %} {% extends 'views/_layout.html' %} {% block content %}
 
 <div class="row" style="margin: 0px 50px 0px 50px;">
 
@@ -65,12 +65,41 @@
 
 <script>
     $("#return_").change(function () {
-            var return_ = $("#return_").val();
-            if (return_ == "false") {
-                $("#return_date").attr({ "disabled": "true" });
-            } else {
-                $("#return_date").removeAttr("disabled");
+        var return_ = $("#return_").val();
+        if (return_ == "false") {
+            $("#return_date").attr({ "disabled": "true" });
+        } else {
+            $("#return_date").removeAttr("disabled");
+        }
+    });
+
+    $("#first-choice").change(function () {
+
+        var $dropdown = $(this);
+        $.getJSON("jsondata/data.json", function (data) {
+
+            var key = $dropdown.val();
+            var vals = [];
+
+            switch (key) {
+                case 'beverages':
+                    vals = data.beverages.split(",");
+                    break;
+                case 'snacks':
+                    vals = data.snacks.split(",");
+                    break;
+                case 'base':
+                    vals = ['Please choose from above'];
             }
-        });   
+
+            var $secondChoice = $("#second-choice");
+            $secondChoice.empty();
+            $.each(vals, function (index, value) {
+                $secondChoice.append("<option>" + value + "</option>");
+            });
+
+        });
+    });
+
 </script> 
 {% endblock %}
