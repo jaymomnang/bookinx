@@ -5,9 +5,14 @@ exports.loadDashboard = function (req, res) {
     var p = helpers.getObjectFromDB(_url);
     p.then(function (result) {
         var _ports = result;
+        var pn = [];
+        var i = 0;
+        for(i == 0; i < _ports.length; i++){
+            pn[i] = _ports[i].port_name;
+        }
         var _p = helpers.getRoutes(_ports);
         var uidata = req.session;
-        res.render("index", { menus, uidata, _p });
+        res.render("index", { menus, uidata, _p, _ports, pn });
     },function (err) {
         console.log(err);
     })

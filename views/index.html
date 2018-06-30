@@ -28,7 +28,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="input-field col s12 l4">
+                                <!--<div class="input-field col s12 l4">
                                     <i class="material-icons prefix">directions_boat</i>
                                     <select name="_route">
                                         <option value="" disabled selected>Select Route</option>
@@ -36,13 +36,33 @@
                                         <option value="{{ p }}">{{ p | toTitleCase }}</option>
                                         {% endfor %}
                                     </select>
+                                </div>-->
+
+                                <div class="input-field col s12 l3">
+                                    <i class="material-icons prefix">directions_boat</i>
+                                    {% set ports = _ports %}
+                                    <select id="_route1" name="_route1" onchange='reloadBox("{{pn}}")'>
+                                        <option value="" disabled selected>Select Route</option>
+                                        {% for p in _ports%}
+                                        <option value="{{ p.port_name }}">{{ p.port_name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    
                                 </div>
-                                <div class="input-field col s12 l4">
+
+                                <div class="input-field col s12 l3">
+                                    <i class="material-icons prefix">directions_boat</i>
+                                    <select id="_route2" name="_route2">
+                                        <option value="" disabled selected>Select Route</option>                                        
+                                    </select>
+                                </div>
+
+                                <div class="input-field col s12 l3">
                                     <i class="material-icons prefix">date_range</i>
                                     <input name="departure_date" id="departure_date" type="text" class="datepicker validate">
                                     <label for="departure_date">Departure Date</label>
                                 </div>
-                                <div class="input-field col s12 l4">
+                                <div class="input-field col s12 l3">
                                     <i class="material-icons prefix">date_range</i>
                                     <input name="return_date" id="return_date" type="text" class="datepicker validate">
                                     <label for="return_date">Return Date</label>
@@ -73,33 +93,26 @@
         }
     });
 
-    $("#first-choice").change(function () {
+    function reloadBox(ports){
 
-        var $dropdown = $(this);
-        $.getJSON("jsondata/data.json", function (data) {
+        var value1 = $("#_route1").val();
+        var data = ports.split(",");
 
-            var key = $dropdown.val();
-            var vals = [];
+        var arr = [];
+        var i = 0;
 
-            switch (key) {
-                case 'beverages':
-                    vals = data.beverages.split(",");
-                    break;
-                case 'snacks':
-                    vals = data.snacks.split(",");
-                    break;
-                case 'base':
-                    vals = ['Please choose from above'];
-            }
-
-            var $secondChoice = $("#second-choice");
-            $secondChoice.empty();
-            $.each(vals, function (index, value) {
-                $secondChoice.append("<option>" + value + "</option>");
-            });
-
+        for(i == 0; i < data.length; i++){
+            if(data[i] != value1){
+                arr.push(data[i]);
+            }            
+        }
+        
+        //$("#_route2").empty();
+        $.each(arr, function (index, val) {            
+            $('#_route2').append(new Option(val, index));
+            console.log(index);
         });
-    });
+    }
 
 </script> 
 {% endblock %}
