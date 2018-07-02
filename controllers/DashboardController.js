@@ -89,15 +89,15 @@ exports.getTrips = function (req, res) {
                 req.session.trips = trips
                 var uidata = req.session;
 
-                //res.render("trips", { menus, uidata });
+                res.render("trips", { menus, uidata });
             }, function (err) {
                 console.log(err);
             });
-        }
-
-        req.session.trips = trips
-        var uidata = req.session;
-        res.render("trips", { menus, uidata });
+        }else{
+            req.session.trips = trips
+            var uidata = req.session;
+            res.render("trips", { menus, uidata });
+        }        
 
     }, function (err) {
         console.log(err);
