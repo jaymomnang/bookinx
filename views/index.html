@@ -1,34 +1,42 @@
  {% set title = 'Home' %} {% extends 'views/_layout.html' %} {% block content %}
+<div class="row center-align white-text" style="margin-bottom: 50px;">
+    <div class="col s12 m5">
+        <h4 id="lblfrom">---</h4>
+    </div>
+    <div class="col s12 m2">
+        <i class="hide-on-med-and-down medium material-icons prefix">arrow_forward</i>
+        <i class="hide-on-large-only medium material-icons prefix">arrow_downward</i>
+    </div>
+    <div class="col s12 m5">
+        <h4 id="lblto">---</h4>
+    </div>
+</div>
+<div class="row" style="margin-bottom: 0px; padding-bottom: 0px;">
 
-<div class="row" style="margin: 0px 50px 0px 50px;">
-
-    <div class="card horizontal">
-        <div class="card-image hide-on-med-and-down">
-            <img src="sidebar.png" height="450">
-        </div>
+    <div class="card horizontal" style="margin-bottom: 0px; padding-bottom: 0px;">
         <div class="card-stacked">
             <div class="card-content">
                 <h2>Book A Trip</h2>
                 <div class="col s12">
-                    <div class="col s12">
-                        <form class="col s12" method="post">
-                            <div class="row">
-                                <div class="input-field col s12 l4">
-                                    <i class="material-icons prefix">directions_boat</i>
-                                    <select name="return_" id="return_">
-                                        <option value="true" selected>Return</option>
-                                        <option value="false">One Way</option>
-                                    </select>
-                                </div>
-                                <div class="input-field col s12 l4">
-                                    <p>
-                                        <input type="checkbox" id="resident_" name="resident_" />
-                                        <label for="resident_">Resindent?</label>
-                                    </p>
-                                </div>
+
+                    <form class="col s12" method="post">
+                        <div class="row">
+                            <div class="input-field col s12 l3">
+                                <i class="material-icons prefix">directions</i>
+                                <select name="return_" id="return_">
+                                    <option value="true" selected>Return</option>
+                                    <option value="false">One Way</option>
+                                </select>
                             </div>
-                            <div class="row">
-                                <!--<div class="input-field col s12 l4">
+                            <div class="input-field col s12 l3">
+                                <p>
+                                    <input type="checkbox" id="resident_" name="resident_" />
+                                    <label for="resident_">Resindent?</label>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!--<div class="input-field col s12 l4">
                                     <i class="material-icons prefix">directions_boat</i>
                                     <select name="_route">
                                         <option value="" disabled selected>Select Route</option>
@@ -38,44 +46,47 @@
                                     </select>
                                 </div>-->
 
-                                <div class="input-field col s12 l3">
-                                    <i class="material-icons prefix">directions_boat</i>
-                                    {% set ports = _ports %}
-                                    <select id="_route1" name="_route1" onchange='reloadBox("{{pn}}")'>
-                                        <option value="" disabled selected>Select Route</option>
-                                        {% for p in _ports%}
-                                        <option value="{{ p.port_name }}">{{ p.port_name }}</option>
-                                        {% endfor %}
-                                    </select>
-                                    
-                                </div>
+                            <div class="input-field col s12 l3">
+                                <i class="material-icons prefix">directions_boat</i>
+                                {% set ports = _ports %}
+                                <select id="_route1" name="_route1" onchange='choosePort(this)'>
+                                    <option value="" disabled selected>From</option>
+                                    {% for p in _ports%}
+                                    <option value="{{ p.port_name }}">{{ p.port_name }}</option>
+                                    {% endfor %}
+                                </select>
 
-                                <div class="input-field col s12 l3">
-                                    <i class="material-icons prefix">directions_boat</i>
-                                    <select id="_route2" name="_route2">
-                                        <option value="" disabled selected>Select Route</option>                                        
-                                    </select>
-                                </div>
+                            </div>
 
-                                <div class="input-field col s12 l3">
-                                    <i class="material-icons prefix">date_range</i>
-                                    <input name="departure_date" id="departure_date" type="text" class="datepicker validate">
-                                    <label for="departure_date">Departure Date</label>
-                                </div>
-                                <div class="input-field col s12 l3">
-                                    <i class="material-icons prefix">date_range</i>
-                                    <input name="return_date" id="return_date" type="text" class="datepicker validate">
-                                    <label for="return_date">Return Date</label>
-                                </div>
+                            <div class="input-field col s12 l3">
+                                <i class="material-icons prefix">directions_boat</i>
+                                <select id="_route2" name="_route2" onchange='choosePort(this)'>
+                                    <option value="" disabled selected>To</option>
+                                    {% for p in _ports%}
+                                    <option value="{{ p.port_name }}">{{ p.port_name }}</option>
+                                    {% endfor %}
+                                </select>
                             </div>
-                            <div class="row">
-                                <button class="btn waves-effect waves-light purple darken-4 right" type="submit" name="action">Find Trips
-                                    <i class="material-icons right">search</i>
-                                </button>
+
+                            <div class="input-field col s12 l3">
+                                <i class="material-icons prefix">date_range</i>
+                                <input name="departure_date" id="departure_date" type="text" class="datepicker validate">
+                                <label for="departure_date">Depart On</label>
                             </div>
-                        </form>
-                        <br/>
-                    </div>
+                            <div class="input-field col s12 l3">
+                                <i class="material-icons prefix">date_range</i>
+                                <input name="return_date" id="return_date" type="text" class="datepicker validate">
+                                <label for="return_date">Return On</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <button class="btn waves-effect waves-light purple darken-4 right" type="submit" name="action">Find Trips
+                                <i class="material-icons right">search</i>
+                            </button>
+                        </div>
+                    </form>
+                    <br/>
+
                 </div>
             </div>
 
@@ -93,26 +104,23 @@
         }
     });
 
-    function reloadBox(ports){
-
-        var value1 = $("#_route1").val();
-        var data = ports.split(",");
-
-        var arr = [];
-        var i = 0;
-
-        for(i == 0; i < data.length; i++){
-            if(data[i] != value1){
-                arr.push(data[i]);
-            }            
-        }
-        
-        //$("#_route2").empty();
-        $.each(arr, function (index, val) {            
-            $('#_route2').append(new Option(val, index));
-            console.log(index);
-        });
+    function choosePort(port) {
+        var value = port.options[port.selectedIndex].value;
+        var data = port.name;
+                
+        if (data == "_route1") {
+            if(value != document.getElementById("lblto").innerHTML){
+                document.getElementById("lblfrom").innerHTML = value;
+            }else{
+                alert("departure port and destination cannot be the same");
+            }
+        }else if (data == "_route2"){
+            if(value != document.getElementById("lblfrom").innerHTML){
+                document.getElementById("lblto").innerHTML = value;
+            }else{
+                alert("departure port and destination cannot be the same");
+            }
+        }        
     }
 
-</script> 
-{% endblock %}
+</script> {% endblock %}

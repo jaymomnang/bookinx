@@ -30,10 +30,15 @@ exports.getSchedules = function (req, res) {
     }
 
     req.session.route = req.body._route;
+    req.session.from_ = req.body._route1;
+    req.session.to_ = req.body._route2;
+
     req.session.departure_date = new Date(req.body.departure_date);
     req.session.return = req.body.return_;
     req.session.resident = req.body.resident_;
     req.session.return_date = new Date(req.body.return_date);
+
+    console.log(req.session);
     return res.redirect("/trips");
 
 };
@@ -41,20 +46,19 @@ exports.getSchedules = function (req, res) {
 //queries database for available trips
 exports.getTrips = function (req, res) {
     //TODO: load all flight/travel schedules.
-    if (req.session.route == undefined) {
+    if (req.session.from_ == undefined && req.session.to_ == undefined) {
         return res.redirect("/");
     }
 
     var data = req.session;
-    var _data = data.route.split(" - ");
-    data.departure_port = _data[0];
-    data.destination = _data[1];
+    data.departure_port = data.from_;
+    data.destination = data.to_;
 
     var trips = [];
 
     var b2 = [];
-    b2.destination = _data[0];
-    b2.departure_port = _data[1];
+    b2.destination = data.from_;
+    b2.departure_port = data.to_;
     b2.departure_date = data.return_date;
 
     var _url = mc_api + "schedule/" + data.departure_port + "/" + data.destination + "/" + data.departure_date;
@@ -85,7 +89,7 @@ exports.getTrips = function (req, res) {
                 req.session.trips = trips
                 var uidata = req.session;
 
-                res.render("trips", { menus, uidata });
+                //res.render("trips", { menus, uidata });
             }, function (err) {
                 console.log(err);
             });
