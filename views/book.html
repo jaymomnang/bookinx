@@ -37,22 +37,22 @@
                     <div class="col s12 l7">
                         <div class="row">
                             {% for p in prices %}
-                            <div class="s12 l6 black white-text" style="border: 2px solid #ccc;">
+                            <div class="col s12 m2 black white-text" style="border: 2px solid #ccc;">
 
                                 {% if uidata.currency == 'TSh' %}
                                 <p>
                                     <input class="center seat" type="radio" id="firstleg_{{p.seatClass}}" name="_toPrice" value="{{p.seatClass}} - {{p.resident_price}}"
                                     required/>
-                                    <label style="font-size: 20px" for="firstleg_{{p.seatClass}}">{{p.seatClass}}
-                                        <br />{{ uidata.currencySymbol }}{{p.resident_price}}</label>
+                                    <label style="font-size: 20px" for="firstleg_{{p.seatClass}}">{{p.description}}</label>
                                 </p>
+                                <h2>{{ uidata.currencySymbol }}{{p.resident_price}}</h2>
                                 {% endif %} {% if uidata.currency == 'USD' %}
                                 <p>
                                     <input class="center seat" type="radio" id="firstleg_{{p.seatClass}}" name="_toPrice" value="{{p.seatClass}} - {{p.non_resident_price}}"
                                     required/>
-                                    <label style="font-size: 20px" for="firstleg_{{p.seatClass}}">{{p.seatClass}}
-                                        <br /> {{ uidata.currencySymbol }}{{p.non_resident_price}}</label>
+                                    <label style="font-size: 20px" for="firstleg_{{p.seatClass}}">{{p.description}}</label>
                                 </p>
+                                <h2>{{ uidata.currencySymbol }}{{p.non_resident_price}}</h2>
                                 {% endif %}
                             </div>
                             {% endfor %}
@@ -86,23 +86,23 @@
                         </div>                        
                     </div>
                     <div class="col s12 l7">
-                        <div class="col s12">
+                        <div class="row">
                             {% for p in prices %}
-                            <div class="col s12 l6 black white-text" style="border: 2px solid #ccc;">
+                            <div class="col s12 m2 black white-text" style="border: 2px solid #ccc;">
                                 {% if uidata.resident == 'on' %}
                                 <p>
                                     <input class="center seat" type="radio" id="secondleg_{{p.seatClass}}" name="_fromPrice" value="{{p.seatClass}}-{{p.resident_price}}"
                                     required/>
-                                    <label style="font-size: 20px" for="secondleg_{{p.seatClass}}">{{p.seatClass}}
-                                        <br /> Tsh{{p.resident_price}}</label>
+                                    <label style="font-size: 20px" for="secondleg_{{p.seatClass}}">{{p.description}}</label>
                                 </p>
+                                <h2>{{ uidata.currencySymbol }}{{p.resident_price}}</h2>
                                 {% endif %} {% if uidata.resident != 'on' %}
                                 <p>
                                     <input class="center seat" type="radio" id="secondleg_{{p.seatClass}}" name="_fromPrice" value="{{p.seatClass}}-{{p.non_resident_price}}"
                                     required/>
-                                    <label style="font-size: 20px" for="secondleg_{{p.seatClass}}">{{p.seatClass}}
-                                        <br /> ${{p.non_resident_price}}</label>
+                                    <label style="font-size: 20px" for="secondleg_{{p.seatClass}}">{{p.description}}</label>
                                 </p>
+                                <h2>{{ uidata.currencySymbol }}{{p.non_resident_price}}</h2>
                                 {% endif %}
 
                             </div>
