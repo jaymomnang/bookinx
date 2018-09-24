@@ -18,7 +18,17 @@
             close: 'Ok',
             min: new Date(yyyy,mm,dd),
             closeOnSelect: true // Close upon selecting a date,
-        });       
+        });
+        
+        $('.datepicker2').pickadate({
+          selectMonths: true, // Creates a dropdown to control month
+          selectYears: 15, // Creates a dropdown of 15 years to control year,
+          today: 'Today',
+          clear: 'Clear',
+          close: 'Ok',
+          min: new Date($('.datepicker').val()),
+          closeOnSelect: true // Close upon selecting a date,
+        }); 
        
         $('.timepicker').pickatime({
             default: 'now', // Set default time: 'now', '1:30AM', '16:30'
